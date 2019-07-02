@@ -1,0 +1,40 @@
+this project is pure shit, hopefully shit is not insulted
+
+this project aims at creating a universal RESTFUL interface for cryptocurrency trading in main markets around the world
+
+the main project is the main.py
+
+the unit test file is the test.py
+
+the database test file is the test-db.py
+
+
+Yo~~
+
+this is the second version of an automatic trading bot.
+
+Yo~~
+
+this software aims at creating a profitable mechanism in digital currency trading...
+
+Yo~~
+
+we are currently using sqlite as the database...
+
+Yo~~
+
+there are several directories:
+
+1. net
+    responsible for communication between local machine and remote machine
+2. obsolete
+    obsolete
+3. exchanges
+    api to link to different exchanges
+4. packages
+    some utilities such as color blah
+5. test
+6. strategies
+7. AIs
+
+
