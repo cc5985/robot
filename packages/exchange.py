@@ -1,4 +1,6 @@
 # -*- coding: UTF-8 -*-
+import sys
+sys.path.append("..")
 from packages import universal
 import time
 

@@ -1,3 +1,5 @@
+import sys
+sys.path.append("..")
 import numpy as NP
 
 def var(arr=None):

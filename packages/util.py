@@ -1,3 +1,5 @@
+import sys
+sys.path.append("..")
 import urllib.request
 import urllib.error
 import urllib.parse

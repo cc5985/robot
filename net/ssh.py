@@ -1,3 +1,5 @@
+import sys
+sys.path.append("..")
 from sshtunnel import SSHTunnelForwarder
 #
 # def UserMysql(db):

@@ -1,5 +1,6 @@
 # it's highly suggested to use ENGLISH only in this project
-
+import sys
+sys.path.append("..")
 from packages import universal
 
 from OKEx.HttpMD5Util import buildMySign,httpGet,httpPost

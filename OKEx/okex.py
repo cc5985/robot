@@ -1,5 +1,7 @@
 # it's highly suggested to use ENGLISH only in this project
 # encoding=utf-8
+import sys
+sys.path.append("..")
 from packages import universal
 import time
 from OKEx.HttpMD5Util import buildMySign,httpGet,httpPost

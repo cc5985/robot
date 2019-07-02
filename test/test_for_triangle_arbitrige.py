@@ -1,3 +1,5 @@
+import sys
+sys.path.append("..")
 from packages import currency_pair as CP
 from packages import account as ACCOUNT
 from strategies import triangle_arbitrage as TRI

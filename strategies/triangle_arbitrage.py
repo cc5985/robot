@@ -10,7 +10,8 @@
     5. 高度抽象化，主程序体内尽量不出现字符串和数值
 '''
 
-
+import sys
+sys.path.append("..")
 import copy
 import packages.color as CL
 from packages import account as AC, coin as CN, currency_pair as CP, currency_pair

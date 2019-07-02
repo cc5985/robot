@@ -1,3 +1,5 @@
+import sys
+sys.path.append("..")
 from packages import digifinex as DIGIFINEX
 from packages import account as ACCOUNT
 from packages import currency_pair as CURRENCYPAIR

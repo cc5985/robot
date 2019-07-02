@@ -1,4 +1,6 @@
 # -*- coding: UTF-8 -*-
+import sys
+sys.path.append("..")
 import csv
 from packages import universal
 from OKEx import okex

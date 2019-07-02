@@ -5,7 +5,8 @@
 # and this project is migrated from btc38_1 project which is forked from
 # a btc38 gem from github
 
-
+import sys
+sys.path.append("..")
 from packages import error_code
 import json
 import time

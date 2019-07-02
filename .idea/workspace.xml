@@ -1,7 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="184357f1-618d-4614-929b-989eed110457" name="Default" comment="" />
+    <list default="true" id="184357f1-618d-4614-929b-989eed110457" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/OKEx/HttpMD5Util.py" afterPath="$PROJECT_DIR$/OKEx/HttpMD5Util.py" />
+      <change beforePath="$PROJECT_DIR$/OKEx/OkcoinFutureAPI.py" afterPath="$PROJECT_DIR$/OKEx/OkcoinFutureAPI.py" />
+      <change beforePath="$PROJECT_DIR$/OKEx/OkcoinSpotAPI.py" afterPath="$PROJECT_DIR$/OKEx/OkcoinSpotAPI.py" />
+      <change beforePath="$PROJECT_DIR$/OKEx/okex.py" afterPath="$PROJECT_DIR$/OKEx/okex.py" />
+      <change beforePath="$PROJECT_DIR$/OKEx/spotAPI.py" afterPath="$PROJECT_DIR$/OKEx/spotAPI.py" />
+      <change beforePath="$PROJECT_DIR$/net/mysql_API.py" afterPath="$PROJECT_DIR$/net/mysql_API.py" />
+      <change beforePath="$PROJECT_DIR$/net/ssh.py" afterPath="$PROJECT_DIR$/net/ssh.py" />
+      <change beforePath="$PROJECT_DIR$/packages/account.py" afterPath="$PROJECT_DIR$/packages/account.py" />
+      <change beforePath="$PROJECT_DIR$/packages/aex.py" afterPath="$PROJECT_DIR$/packages/aex.py" />
+      <change beforePath="$PROJECT_DIR$/packages/coin.py" afterPath="$PROJECT_DIR$/packages/coin.py" />
+      <change beforePath="$PROJECT_DIR$/packages/color.py" afterPath="$PROJECT_DIR$/packages/color.py" />
+      <change beforePath="$PROJECT_DIR$/packages/currency_pair.py" afterPath="$PROJECT_DIR$/packages/currency_pair.py" />
+      <change beforePath="$PROJECT_DIR$/packages/digifinex.py" afterPath="$PROJECT_DIR$/packages/digifinex.py" />
+      <change beforePath="$PROJECT_DIR$/packages/error.py" afterPath="$PROJECT_DIR$/packages/error.py" />
+      <change beforePath="$PROJECT_DIR$/packages/error_code.py" afterPath="$PROJECT_DIR$/packages/error_code.py" />
+      <change beforePath="$PROJECT_DIR$/packages/exchange.py" afterPath="$PROJECT_DIR$/packages/exchange.py" />
+      <change beforePath="$PROJECT_DIR$/packages/math2.py" afterPath="$PROJECT_DIR$/packages/math2.py" />
+      <change beforePath="$PROJECT_DIR$/packages/universal.py" afterPath="$PROJECT_DIR$/packages/universal.py" />
+      <change beforePath="$PROJECT_DIR$/packages/util.py" afterPath="$PROJECT_DIR$/packages/util.py" />
+      <change beforePath="$PROJECT_DIR$/strategies/triangle_arbitrage.py" afterPath="$PROJECT_DIR$/strategies/triangle_arbitrage.py" />
+      <change beforePath="$PROJECT_DIR$/test/test_for_digifinex.py" afterPath="$PROJECT_DIR$/test/test_for_digifinex.py" />
+      <change beforePath="$PROJECT_DIR$/test/test_for_triangle_arbitrige.py" afterPath="$PROJECT_DIR$/test/test_for_triangle_arbitrige.py" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -11,48 +34,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="exchange.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/packages/exchange.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="9" column="31" lean-forward="false" selection-start-line="9" selection-start-column="31" selection-end-line="9" selection-end-column="31" />
-              <folding>
-                <element signature="e#24#54#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="universal.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/packages/universal.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7686">
-              <caret line="502" column="0" lean-forward="false" selection-start-line="502" selection-start-column="0" selection-end-line="502" selection-end-column="0" />
-              <folding>
-                <element signature="e#304#335#0" expanded="true" />
-                <element signature="e#6832#7444#0" expanded="false" />
-                <element signature="e#7548#8163#0" expanded="false" />
-                <element signature="e#12534#13645#0" expanded="false" />
-                <element signature="e#14386#15530#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="currency_pair.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/packages/currency_pair.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="80" column="33" lean-forward="false" selection-start-line="80" selection-start-column="33" selection-end-line="80" selection-end-column="33" />
-              <folding>
-                <element signature="e#105#1562#0" expanded="false" />
-                <element signature="e#1674#1875#0" expanded="false" />
-                <element signature="e#1988#3261#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="test_for_currency_pair.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/test_for_currency_pair.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -65,14 +46,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test_for_triangle_arbitrige.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="test_for_triangle_arbitrige.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/test_for_triangle_arbitrige.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="54">
-              <caret line="3" column="11" lean-forward="true" selection-start-line="3" selection-start-column="11" selection-end-line="3" selection-end-column="11" />
-              <folding>
-                <element signature="e#0#40#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="18">
+              <caret line="1" column="21" lean-forward="false" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test_for_digifinex.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/test/test_for_digifinex.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="18">
+              <caret line="1" column="21" lean-forward="false" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -80,11 +69,10 @@
       <file leaf-file-name="triangle_arbitrage.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/strategies/triangle_arbitrage.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="309">
-              <caret line="57" column="27" lean-forward="true" selection-start-line="57" selection-start-column="27" selection-end-line="57" selection-end-column="27" />
+            <state relative-caret-position="234">
+              <caret line="13" column="21" lean-forward="false" selection-start-line="13" selection-start-column="21" selection-end-line="13" selection-end-column="21" />
               <folding>
-                <element signature="e#296#307#0" expanded="true" />
-                <element signature="e#3801#4241#0" expanded="false" />
+                <element signature="e#3833#4273#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -149,7 +137,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/API_list.csv" />
         <option value="$PROJECT_DIR$/currency.py" />
         <option value="$PROJECT_DIR$/currency_pair.py" />
         <option value="$PROJECT_DIR$/error.py" />
@@ -168,37 +155,47 @@
         <option value="$PROJECT_DIR$/math2.py" />
         <option value="$PROJECT_DIR$/universal.py" />
         <option value="$PROJECT_DIR$/coin.py" />
-        <option value="$PROJECT_DIR$/packages/color.py" />
         <option value="$PROJECT_DIR$/record.md" />
         <option value="$PROJECT_DIR$/robot1.py" />
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/robot3.py" />
         <option value="$PROJECT_DIR$/packages/connection.py" />
-        <option value="$PROJECT_DIR$/packages/account.py" />
-        <option value="$PROJECT_DIR$/OKEx/okex.py" />
         <option value="$PROJECT_DIR$/test/test_for_aex.py" />
-        <option value="$PROJECT_DIR$/packages/util.py" />
-        <option value="$PROJECT_DIR$/packages/aex.py" />
         <option value="$PROJECT_DIR$/robot2.py" />
+        <option value="$PROJECT_DIR$/aex-robot-tri-arbi.py" />
+        <option value="$PROJECT_DIR$/digiFinex三角套.py" />
+        <option value="$PROJECT_DIR$/test/test_for_currency_pair.py" />
+        <option value="$PROJECT_DIR$/strategies/__init__.py" />
+        <option value="$PROJECT_DIR$/test/test_for_triangle_arbitrige.py" />
+        <option value="$PROJECT_DIR$/net/mysql_API.py" />
+        <option value="$PROJECT_DIR$/net/ssh.py" />
+        <option value="$PROJECT_DIR$/OKEx/HttpMD5Util.py" />
+        <option value="$PROJECT_DIR$/OKEx/OkcoinFutureAPI.py" />
+        <option value="$PROJECT_DIR$/OKEx/OkcoinSpotAPI.py" />
+        <option value="$PROJECT_DIR$/OKEx/okex.py" />
+        <option value="$PROJECT_DIR$/OKEx/spotAPI.py" />
+        <option value="$PROJECT_DIR$/packages/account.py" />
+        <option value="$PROJECT_DIR$/packages/aex.py" />
+        <option value="$PROJECT_DIR$/packages/coin.py" />
+        <option value="$PROJECT_DIR$/packages/color.py" />
+        <option value="$PROJECT_DIR$/packages/currency_pair.py" />
+        <option value="$PROJECT_DIR$/packages/digifinex.py" />
+        <option value="$PROJECT_DIR$/packages/error.py" />
         <option value="$PROJECT_DIR$/packages/error_code.py" />
         <option value="$PROJECT_DIR$/packages/exchange.py" />
-        <option value="$PROJECT_DIR$/aex-robot-tri-arbi.py" />
-        <option value="$PROJECT_DIR$/test/test_for_digifinex.py" />
-        <option value="$PROJECT_DIR$/packages/digifinex.py" />
+        <option value="$PROJECT_DIR$/packages/math2.py" />
         <option value="$PROJECT_DIR$/packages/universal.py" />
-        <option value="$PROJECT_DIR$/digiFinex三角套.py" />
-        <option value="$PROJECT_DIR$/packages/currency_pair.py" />
-        <option value="$PROJECT_DIR$/test/test_for_currency_pair.py" />
-        <option value="$PROJECT_DIR$/test/test_for_triangle_arbitrige.py" />
+        <option value="$PROJECT_DIR$/packages/util.py" />
         <option value="$PROJECT_DIR$/strategies/triangle_arbitrage.py" />
+        <option value="$PROJECT_DIR$/test/test_for_digifinex.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-9" />
-    <option name="y" value="-9" />
-    <option name="width" value="1938" />
-    <option name="height" value="1048" />
+    <option name="x" value="126" />
+    <option name="y" value="358" />
+    <option name="width" value="1396" />
+    <option name="height" value="974" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -247,7 +244,17 @@
             <path>
               <item name="robot-master" type="b2602c69:ProjectViewProjectNode" />
               <item name="robot-master" type="462c0819:PsiDirectoryNode" />
+              <item name="net" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="robot-master" type="b2602c69:ProjectViewProjectNode" />
+              <item name="robot-master" type="462c0819:PsiDirectoryNode" />
               <item name="OKEx" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="robot-master" type="b2602c69:ProjectViewProjectNode" />
+              <item name="robot-master" type="462c0819:PsiDirectoryNode" />
+              <item name="packages" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="robot-master" type="b2602c69:ProjectViewProjectNode" />
@@ -258,19 +265,6 @@
               <item name="robot-master" type="b2602c69:ProjectViewProjectNode" />
               <item name="robot-master" type="462c0819:PsiDirectoryNode" />
               <item name="strategies" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="robot-master" type="b2602c69:ProjectViewProjectNode" />
-              <item name="robot-master" type="462c0819:PsiDirectoryNode" />
-              <item name="strategies" type="462c0819:PsiDirectoryNode" />
-              <item name="triangle_arbitrage.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="robot-master" type="b2602c69:ProjectViewProjectNode" />
-              <item name="robot-master" type="462c0819:PsiDirectoryNode" />
-              <item name="strategies" type="462c0819:PsiDirectoryNode" />
-              <item name="triangle_arbitrage.py" type="8704e2dd:PyFileNode" />
-              <item name="TriangleArbitrage" type="dd8bbb05:PyElementNode" />
             </path>
             <path>
               <item name="robot-master" type="b2602c69:ProjectViewProjectNode" />
@@ -290,6 +284,12 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/packages" />
+      <recent name="$PROJECT_DIR$/net" />
+      <recent name="$PROJECT_DIR$/test" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/test" />
       <recent name="$PROJECT_DIR$/obsolete" />
@@ -466,7 +466,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/net/mysql_API.py</url>
-          <line>87</line>
+          <line>88</line>
           <option name="timeStamp" value="35" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -481,7 +481,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OKEx/okex.py</url>
-          <line>342</line>
+          <line>344</line>
           <option name="timeStamp" value="95" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -511,12 +511,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OKEx/HttpMD5Util.py</url>
-          <line>18</line>
+          <line>19</line>
           <option name="timeStamp" value="195" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OKEx/HttpMD5Util.py</url>
-          <line>19</line>
+          <line>20</line>
           <option name="timeStamp" value="197" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -526,12 +526,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/packages/aex.py</url>
-          <line>99</line>
+          <line>101</line>
           <option name="timeStamp" value="241" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/test/test_for_digifinex.py</url>
-          <line>17</line>
+          <line>19</line>
           <option name="timeStamp" value="282" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -541,17 +541,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/packages/digifinex.py</url>
-          <line>136</line>
+          <line>138</line>
           <option name="timeStamp" value="306" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/packages/universal.py</url>
-          <line>489</line>
+          <line>490</line>
           <option name="timeStamp" value="308" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/packages/universal.py</url>
-          <line>502</line>
+          <line>503</line>
           <option name="timeStamp" value="309" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -561,7 +561,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/test/test_for_triangle_arbitrige.py</url>
-          <line>24</line>
+          <line>26</line>
           <option name="timeStamp" value="315" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -571,17 +571,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/strategies/triangle_arbitrage.py</url>
-          <line>192</line>
+          <line>193</line>
           <option name="timeStamp" value="333" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/strategies/triangle_arbitrage.py</url>
-          <line>177</line>
+          <line>178</line>
           <option name="timeStamp" value="335" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/strategies/triangle_arbitrage.py</url>
-          <line>57</line>
+          <line>58</line>
           <option name="timeStamp" value="336" />
         </line-breakpoint>
       </breakpoints>
@@ -597,78 +597,10 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file:///usr/local/lib/python3.5/dist-packages/pymysql/__init__.py" />
-    <entry file="file:///usr/local/lib/python3.5/dist-packages/sshtunnel.py" />
-    <entry file="file://$PROJECT_DIR$/net/ssh.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="484">
-          <caret line="27" column="18" lean-forward="false" selection-start-line="27" selection-start-column="18" selection-end-line="27" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shit/Client.py.rubbish">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="74">
-          <caret line="59" column="28" lean-forward="true" selection-start-line="59" selection-start-column="28" selection-end-line="59" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/date.py" />
-    <entry file="file://$PROJECT_DIR$/packages/error.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="28" lean-forward="false" selection-start-line="2" selection-start-column="28" selection-end-line="2" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/net/mysql_API.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-700">
-          <caret line="95" column="20" lean-forward="true" selection-start-line="95" selection-start-column="20" selection-end-line="95" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/OKEx/OkcoinFutureAPI.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/OKEx/spotAPI.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-85">
-          <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shit.md" />
     <entry file="file://$USER_HOME$/.PyCharmCE2017.3/system/python_stubs/-1247971764/time.py" />
     <entry file="file://$PROJECT_DIR$/API_list.csv" />
-    <entry file="file://$PROJECT_DIR$/OKEx/OkcoinSpotAPI.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-582">
-          <caret line="65" column="28" lean-forward="true" selection-start-line="65" selection-start-column="28" selection-end-line="65" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/lib/python3.5/dist-packages/numpy/core/_methods.py" />
-    <entry file="file://$PROJECT_DIR$/packages/math2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="13" column="19" lean-forward="true" selection-start-line="13" selection-start-column="19" selection-end-line="13" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/lib/python3/dist-packages/apport_python_hook.py" />
-    <entry file="file://$PROJECT_DIR$/packages/color.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="648">
-          <caret line="36" column="32" lean-forward="true" selection-start-line="36" selection-start-column="32" selection-end-line="36" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/lib/python3.5/copy.py" />
     <entry file="file://$PROJECT_DIR$/obsolete/trading_bot1.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -724,23 +656,6 @@
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python35/Lib/http/client.py" />
-    <entry file="file://$PROJECT_DIR$/packages/util.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="127" column="25" lean-forward="false" selection-start-line="127" selection-start-column="20" selection-end-line="127" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/OKEx/HttpMD5Util.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="15" column="64" lean-forward="false" selection-start-line="15" selection-start-column="12" selection-end-line="15" selection-end-column="64" />
-          <folding>
-            <element signature="e#72#90#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/robot3.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="46">
@@ -756,105 +671,6 @@
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/.PyCharmCE2017.2/system/python_stubs/-1802830686/time.py" />
-    <entry file="file://$PROJECT_DIR$/packages/coin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="1" column="18" lean-forward="false" selection-start-line="1" selection-start-column="18" selection-end-line="1" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/packages/aex.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding>
-            <element signature="e#24#54#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/packages/error_code.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="109" column="7" lean-forward="false" selection-start-line="109" selection-start-column="2" selection-end-line="109" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/packages/account.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="24" column="8" lean-forward="false" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/test_for_digifinex.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="69">
-          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/packages/digifinex.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-30">
-          <caret line="136" column="0" lean-forward="false" selection-start-line="136" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
-          <folding>
-            <element signature="e#24#35#0" expanded="true" />
-            <element signature="e#3528#3547#0" expanded="false" />
-            <element signature="e#4382#4890#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/OKEx/okex.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="49" column="49" lean-forward="false" selection-start-line="49" selection-start-column="8" selection-end-line="49" selection-end-column="49" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-            <element signature="e#77#107#0" expanded="true" />
-            <element signature="e#2926#3049#0" expanded="false" />
-            <element signature="e#3260#3556#0" expanded="false" />
-            <element signature="e#3323#3431#0" expanded="false" />
-            <element signature="e#3741#3940#0" expanded="false" />
-            <element signature="e#4790#5253#0" expanded="false" />
-            <element signature="e#4855#5009#0" expanded="false" />
-            <element signature="e#5154#5169#0" expanded="false" />
-            <element signature="e#5753#6079#0" expanded="false" />
-            <element signature="e#5818#5939#0" expanded="false" />
-            <element signature="e#6123#6595#0" expanded="false" />
-            <element signature="e#6643#7081#0" expanded="false" />
-            <element signature="e#6882#7051#0" expanded="false" />
-            <element signature="e#6926#7051#0" expanded="false" />
-            <element signature="e#8363#8601#0" expanded="false" />
-            <element signature="e#8422#8601#0" expanded="false" />
-            <element signature="e#8636#8813#0" expanded="false" />
-            <element signature="e#8695#8813#0" expanded="false" />
-            <element signature="e#9026#11316#0" expanded="false" />
-            <element signature="e#9026#9225#1" expanded="false" />
-            <element signature="e#9713#9873#0" expanded="false" />
-            <element signature="e#10249#11180#0" expanded="false" />
-            <element signature="e#10286#11180#0" expanded="false" />
-            <element signature="e#10380#10402#0" expanded="false" />
-            <element signature="e#11380#11663#1" expanded="false" />
-            <element signature="e#12390#13931#0" expanded="false" />
-            <element signature="e#12751#12991#0" expanded="false" />
-            <element signature="e#13349#13931#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/packages/exchange.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="9" column="31" lean-forward="false" selection-start-line="9" selection-start-column="31" selection-end-line="9" selection-end-column="31" />
-          <folding>
-            <element signature="e#24#54#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/robot2.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1564">
@@ -880,21 +696,248 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/packages/universal.py">
+    <entry file="file://$PROJECT_DIR$/digiFinex三角套.py" />
+    <entry file="file://$PROJECT_DIR$/aex-robot-tri-arbi.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7686">
-          <caret line="502" column="0" lean-forward="false" selection-start-line="502" selection-start-column="0" selection-end-line="502" selection-end-column="0" />
+        <state relative-caret-position="4644">
+          <caret line="264" column="59" lean-forward="false" selection-start-line="258" selection-start-column="4" selection-end-line="264" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/strategies/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/net/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/net/mysql_API.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="3" column="21" lean-forward="false" selection-start-line="3" selection-start-column="21" selection-end-line="3" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/net/ssh.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="1" column="21" lean-forward="false" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OKEx/HttpMD5Util.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="21" lean-forward="false" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OKEx/OkcoinFutureAPI.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="21" lean-forward="false" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OKEx/OkcoinSpotAPI.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="21" lean-forward="false" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OKEx/okex.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="3" column="21" lean-forward="false" selection-start-line="3" selection-start-column="21" selection-end-line="3" selection-end-column="21" />
           <folding>
-            <element signature="e#304#335#0" expanded="true" />
-            <element signature="e#6832#7444#0" expanded="false" />
-            <element signature="e#7548#8163#0" expanded="false" />
-            <element signature="e#12534#13645#0" expanded="false" />
-            <element signature="e#14386#15530#0" expanded="false" />
+            <element signature="n#!!doc" expanded="false" />
+            <element signature="e#2959#3082#0" expanded="false" />
+            <element signature="e#3293#3589#0" expanded="false" />
+            <element signature="e#3356#3464#0" expanded="false" />
+            <element signature="e#3774#3973#0" expanded="false" />
+            <element signature="e#4823#5286#0" expanded="false" />
+            <element signature="e#4888#5042#0" expanded="false" />
+            <element signature="e#5187#5202#0" expanded="false" />
+            <element signature="e#5786#6112#0" expanded="false" />
+            <element signature="e#5851#5972#0" expanded="false" />
+            <element signature="e#6156#6628#0" expanded="false" />
+            <element signature="e#6676#7114#0" expanded="false" />
+            <element signature="e#6915#7084#0" expanded="false" />
+            <element signature="e#6959#7084#0" expanded="false" />
+            <element signature="e#8396#8634#0" expanded="false" />
+            <element signature="e#8455#8634#0" expanded="false" />
+            <element signature="e#8669#8846#0" expanded="false" />
+            <element signature="e#8728#8846#0" expanded="false" />
+            <element signature="e#9059#11349#0" expanded="false" />
+            <element signature="e#9059#9258#1" expanded="false" />
+            <element signature="e#9746#9906#0" expanded="false" />
+            <element signature="e#10282#11213#0" expanded="false" />
+            <element signature="e#10319#11213#0" expanded="false" />
+            <element signature="e#10413#10435#0" expanded="false" />
+            <element signature="e#11413#11696#1" expanded="false" />
+            <element signature="e#12423#13964#0" expanded="false" />
+            <element signature="e#12784#13024#0" expanded="false" />
+            <element signature="e#13382#13964#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/digiFinex三角套.py" />
+    <entry file="file://$PROJECT_DIR$/OKEx/spotAPI.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="21" lean-forward="false" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/account.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="21" lean-forward="false" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/aex.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="21" lean-forward="false" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/coin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="1" column="21" lean-forward="false" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/color.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="21" lean-forward="false" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/currency_pair.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="1" column="21" lean-forward="false" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
+          <folding>
+            <element signature="e#138#1595#0" expanded="false" />
+            <element signature="e#1707#1908#0" expanded="false" />
+            <element signature="e#2021#3294#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/digifinex.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="21" lean-forward="false" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
+          <folding>
+            <element signature="e#3561#3580#0" expanded="false" />
+            <element signature="e#4415#4923#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/error.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="1" column="21" lean-forward="false" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/error_code.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="21" lean-forward="false" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/exchange.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="21" lean-forward="false" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/math2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="1" column="21" lean-forward="false" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/universal.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="8" column="21" lean-forward="false" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
+          <folding>
+            <element signature="e#6864#7476#0" expanded="false" />
+            <element signature="e#7580#8195#0" expanded="false" />
+            <element signature="e#12566#13677#0" expanded="false" />
+            <element signature="e#14418#15562#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/util.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="1" column="21" lean-forward="false" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/test/test_for_currency_pair.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
@@ -905,44 +948,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/packages/currency_pair.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="80" column="33" lean-forward="false" selection-start-line="80" selection-start-column="33" selection-end-line="80" selection-end-column="33" />
-          <folding>
-            <element signature="e#105#1562#0" expanded="false" />
-            <element signature="e#1674#1875#0" expanded="false" />
-            <element signature="e#1988#3261#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/aex-robot-tri-arbi.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4644">
-          <caret line="264" column="59" lean-forward="false" selection-start-line="258" selection-start-column="4" selection-end-line="264" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/strategies/triangle_arbitrage.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="57" column="27" lean-forward="true" selection-start-line="57" selection-start-column="27" selection-end-line="57" selection-end-column="27" />
+        <state relative-caret-position="234">
+          <caret line="13" column="21" lean-forward="false" selection-start-line="13" selection-start-column="21" selection-end-line="13" selection-end-column="21" />
           <folding>
-            <element signature="e#296#307#0" expanded="true" />
-            <element signature="e#3801#4241#0" expanded="false" />
+            <element signature="e#3833#4273#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/test_for_triangle_arbitrige.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="3" column="11" lean-forward="true" selection-start-line="3" selection-start-column="11" selection-end-line="3" selection-end-column="11" />
-          <folding>
-            <element signature="e#0#40#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="18">
+          <caret line="1" column="21" lean-forward="false" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/test_for_digifinex.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="1" column="21" lean-forward="false" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -1,5 +1,6 @@
 # encoding=utf-8
-
+import sys
+sys.path.append("..")
 Error_code_for_OKEx= \
  {10000:'必选参数不能为空',
   10001:'用户请求频率过快，超过该接口允许的限额',
