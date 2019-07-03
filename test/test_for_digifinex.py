@@ -7,7 +7,7 @@ account=ACCOUNT.Account('15d12cfa0a69be','c6d6a4b051b36e373bb47eede7c1675d05d12c
 digifinex=DIGIFINEX.DigiFinex(account)
 
 currency_pair=CURRENCYPAIR.CurrencyPair('btc','usdt')
-# ticker=digifinex.ticker()
+ticker=digifinex.ticker()
 # depth=digifinex.depth(currency_pair)
 balance=digifinex.balances()
 

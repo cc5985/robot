@@ -156,13 +156,14 @@ class TriangleArbitrage():
     def find_paths(self):
         return [(0,1,2),(1,0,2),(2,0,1)]
 
-    def find_arbitrage_points(self):
+    def find_arbitrage_points(self, depths=None):
         currencies=self.currencies
-        # depths 是深度列表，读取深度列表
-        depths = []
-        for pair in self.tradable_currency_pairs:
-            depth = digifinex.depth(pair)
-            depths.append(depth)
+        if depths is None:
+            # depths 是深度列表，读取深度列表
+            depths = []
+            for pair in self.tradable_currency_pairs:
+                depth = digifinex.depth(pair)
+                depths.append(depth)
 
         time1 = time.time()
 
@@ -198,7 +199,7 @@ class TriangleArbitrage():
         print(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())),end='')
         for p in profits:
             if p > 0:
-                print(color.green(('\t\twin=%(win)f\t' % {'win': p})),end='')
+                print(color.green(('    win=%(win)f\t' % {'win': p})),end='')
             elif p < -1:
                 print(color.red(('win=%(win)f\t' % {'win': p})),end='')
             else:

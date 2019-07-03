@@ -85,6 +85,12 @@ class CurrencyPair:
         else:
             return None
 
+    def equals(self, other):
+        if self.base==other.base and self.reference==other.reference:
+            return True
+        else:
+            return False
+
     def contains(self, currency):
         if self.base==currency or self.reference==currency:
             return True
