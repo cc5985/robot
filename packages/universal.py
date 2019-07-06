@@ -150,7 +150,57 @@ class Ask(Order):
 
 
 class Depth(object):
-    def __init__(self, market, currency_pair, result):
+    @classmethod
+    def filter(cls, depths):
+        '''
+        by analyzing several depths, this method determines a Depth instance that is most likely to be an accurate one
+        which filters out the flash orders
+        :param depths: a list of depths which is ordered by time
+        :return: A Depth instance
+        '''
+        num_depths=len(depths)
+        asks=[]
+        bids=[]
+
+
+        # record every price
+        for bid in depths[0].bids:
+            price=bid.price
+            amount=bid.amount
+            flag=1  # after having iterated all bids of other depths and find a bid that has the same price as this one, flag+=1
+            for cnt in range(1,len(depths)):
+                for bid1 in depths[cnt].bids:
+                    if bid1.price==price:
+                        amount=min(amount,bid1.amount)
+                        flag+=1
+            if flag==len(depths):
+                bids.append(Bid(price,amount))
+
+
+        for ask in depths[0].asks:
+            price = ask.price
+            amount = ask.amount
+            flag = 1  # after having iterated all bids of other depths and find a bid that has the same price as this one, flag+=1
+            for cnt in range(1, len(depths)):
+                for ask1 in depths[cnt].asks:
+                    if ask1.price == price:
+                        amount = min(amount, ask1.amount)
+                        flag += 1
+            if flag == len(depths):
+                asks.append(Ask(price, amount))
+
+        result_depth=Depth(
+            market=depths[0].market,
+            currency_pair=depths[0].currency_pair,
+            result= None,
+            asks=asks,
+            bids=bids
+        )
+        return result_depth
+        pass
+
+
+    def __init__(self, market, currency_pair, result=None, bids=None,asks=None):
         '''
         the Depth class instance has the following data members:
         bids:  Array of Bid
@@ -163,6 +213,14 @@ class Depth(object):
         :param currency_pair: represents which currency pair you are trading with
         :param result: represents the json that the server returns to you
         '''
+        if result is None:
+            self.bids = bids
+            self.asks = asks
+            self.timestamp = int(time.time())
+            self.market = market
+            self.currency_pair = currency_pair
+            self.message = "True"
+            return
         self.bids=[]
         self.asks=[]
         self.timestamp=int(time.time())
@@ -446,19 +504,20 @@ class Trades:
                     self.trades.append(trade)
                 self.message="操作成功"
             if market=="aex":
+                result=json.loads(result)
                 for item in result:
-                    if str(item["buyer_id"])==str(user_id):
+                    if str(item["type"])=='buy':
                         trade_type=1
                     else:
                         trade_type=0
                     price=float(item['price'])
-                    amount=float(item['volume'])
-                    date= int(time.mktime(time.strptime(item['time'], '%Y-%m-%d %H:%M:%S')))
-                    tid=int(item['id'])
+                    amount=float(item['amount'])
+                    date= item['date']
+                    tid=int(item['tid'])
                     trade=TradeInfo(date,price,amount,trade_type,tid,status)
                     self.trades.append(trade)
                 self.message="操作成功"
-                self.trades.sort()
+                self.trades.reverse()
         except Exception as e:
             self.message=e
 

@@ -6,6 +6,7 @@ from strategies import triangle_arbitrage as TRI
 from packages import digifinex as DIGIFINEX
 import time
 
+# define CONSTANTS:
 account=ACCOUNT.Account('15d12cfa0a69be','c6d6a4b051b36e373bb47eede7c1675d05d12cfa0')
 digifinex=DIGIFINEX.DigiFinex(account)
 

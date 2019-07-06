@@ -3,7 +3,7 @@ sys.path.append("..")
 class CurrencyPair:
 
     @classmethod
-    def get_all_currency_pairs(cls, market, account=None):
+    def get_all_currency_pairs(cls, market, account=None, user_id=None):
         market=str(market).lower()
         if market=='digifinex':
             from packages import digifinex as DIGIFINEX
@@ -35,18 +35,49 @@ class CurrencyPair:
             #     sorted(x, key=lambda x : x['name'], reverse=True)
             for item in currency_pairs.keys():
                 currency_pairs[item]=sorted(currency_pairs[item], key=lambda x : x['vol'], reverse=True)
+        if market=='aex':
+            from packages import aex as AEX
+            aex=AEX.AEX(account, user_id)
+            tickers={}
+            tickers['cny']=aex.ticker(CurrencyPair('all','cny'),True)
+            tickers['usdt']=aex.ticker(CurrencyPair('all','usdt'),True)
+            # 在digiFinex返回的tickers数据结构里，每个项的vol字段的值指的是base的成交量，而不是reference的成交量，所以首先要变成reference成交量
+            _tickers={}
+            for key1 in tickers.keys():
+                for key2 in tickers[key1]:
+                    if key1+'_'+key2=='usdt_tusd' or key1+'_'+key2=='usdt_pax':
+                        continue
+                    _tickers[key1+'_'+key2]=tickers[key1][key2]['ticker']
+            tickers=_tickers
+            currency_pairs={
+                'usdt':[],
+                'cny':[]
+            }
+            for item in dict(tickers).keys():
+                base=str(item).split('_')[1]
+                reference=str(item).split('_')[0]
+                currency_pair=CurrencyPair(base,reference)
+                vol=tickers[item]['vol']*tickers[item]['last']
+                currency_pairs[reference].append({
+                    'currency_pair':currency_pair,
+                    'vol':vol,
+                    'reference':reference
+                })
+            #     sorted(x, key=lambda x : x['name'], reverse=True)
+            for item in currency_pairs.keys():
+                currency_pairs[item]=sorted(currency_pairs[item], key=lambda x : x['vol'], reverse=True)
         return currency_pairs
 
     @classmethod
-    def get_top_n_currency_pairs_adjusted_by_vol(cls,market, account=None, top_n=5):
-        currency_pairs=CurrencyPair.get_all_currency_pairs(market,account)
+    def get_top_n_currency_pairs_adjusted_by_vol(cls,market, account=None, top_n=5, user_id=None):
+        currency_pairs=CurrencyPair.get_all_currency_pairs(market,account, user_id)
         for item in currency_pairs.keys():
             currency_pairs[item]=currency_pairs[item][:top_n]
         return currency_pairs
 
     @classmethod
-    def find_triangle_arbitragable_currency_pairs(cls,market, account=None, top_n=5):
-        currency_pairs=CurrencyPair.get_top_n_currency_pairs_adjusted_by_vol(market,account,top_n)
+    def find_triangle_arbitragable_currency_pairs(cls,market, account=None, top_n=5, user_id=None):
+        currency_pairs=CurrencyPair.get_top_n_currency_pairs_adjusted_by_vol(market,account,top_n, user_id)
         arbitragable_keypairs=[]
         _currency_pairs=[]
         for item in currency_pairs.keys():

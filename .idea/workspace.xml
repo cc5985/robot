@@ -2,12 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="184357f1-618d-4614-929b-989eed110457" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/python.iml" afterPath="$PROJECT_DIR$/.idea/python.iml" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/packages/aex.py" afterPath="$PROJECT_DIR$/packages/aex.py" />
       <change beforePath="$PROJECT_DIR$/packages/currency_pair.py" afterPath="$PROJECT_DIR$/packages/currency_pair.py" />
-      <change beforePath="$PROJECT_DIR$/strategies/triangle_arbitrage.py" afterPath="$PROJECT_DIR$/strategies/triangle_arbitrage.py" />
-      <change beforePath="$PROJECT_DIR$/test/test_for_digifinex.py" afterPath="$PROJECT_DIR$/test/test_for_digifinex.py" />
+      <change beforePath="$PROJECT_DIR$/packages/universal.py" afterPath="$PROJECT_DIR$/packages/universal.py" />
+      <change beforePath="$PROJECT_DIR$/test/test_for_aex.py" afterPath="$PROJECT_DIR$/test/test_for_aex.py" />
       <change beforePath="$PROJECT_DIR$/test/test_for_triangle_arbitrige.py" afterPath="$PROJECT_DIR$/test/test_for_triangle_arbitrige.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,46 +17,58 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="test_for_currency_pair.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/test_for_currency_pair.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="4" column="33" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#40#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="test_for_triangle_arbitrige.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="test_for_triangle_arbitrige.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/test_for_triangle_arbitrige.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="54" column="21" lean-forward="true" selection-start-line="54" selection-start-column="21" selection-end-line="54" selection-end-column="21" />
+            <state relative-caret-position="123">
+              <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="59" selection-end-column="3" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="digifinex.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/packages/digifinex.py">
+      <file leaf-file-name="universal.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/packages/universal.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="134">
-              <caret line="66" column="37" lean-forward="true" selection-start-line="66" selection-start-column="37" selection-end-line="66" selection-end-column="37" />
+            <state relative-caret-position="371">
+              <caret line="188" column="35" lean-forward="true" selection-start-line="188" selection-start-column="35" selection-end-line="188" selection-end-column="35" />
               <folding>
-                <element signature="e#3561#3580#0" expanded="false" />
-                <element signature="e#4415#4923#0" expanded="false" />
+                <element signature="e#8885#9497#0" expanded="false" />
+                <element signature="e#9601#10216#0" expanded="false" />
+                <element signature="e#14587#15698#0" expanded="false" />
+                <element signature="e#16439#17583#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test_for_digifinex.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/test_for_digifinex.py">
+      <file leaf-file-name="test_for_universal.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/test/test_for_universal.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="54">
-              <caret line="3" column="39" lean-forward="true" selection-start-line="3" selection-start-column="39" selection-end-line="3" selection-end-column="39" />
+            <state relative-caret-position="144">
+              <caret line="17" column="19" lean-forward="true" selection-start-line="17" selection-start-column="19" selection-end-line="17" selection-end-column="19" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test_for_aex.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/test_for_aex.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="252">
+              <caret line="68" column="13" lean-forward="true" selection-start-line="68" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
+              <folding>
+                <element signature="e#380#416#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="robot1.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/aex/robot1.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="67" column="0" lean-forward="true" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -67,7 +77,7 @@
       <file leaf-file-name="triangle_arbitrage.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/strategies/triangle_arbitrage.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="329">
+            <state relative-caret-position="905">
               <caret line="207" column="0" lean-forward="true" selection-start-line="207" selection-start-column="0" selection-end-line="207" selection-end-column="0" />
               <folding>
                 <element signature="e#3833#4273#0" expanded="false" />
@@ -79,13 +89,32 @@
       <file leaf-file-name="currency_pair.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/packages/currency_pair.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="86" column="0" lean-forward="true" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
+            <state relative-caret-position="315">
+              <caret line="50" column="28" lean-forward="true" selection-start-line="50" selection-start-column="28" selection-end-line="50" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="digifinex.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/packages/digifinex.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="9">
+              <caret line="53" column="8" lean-forward="false" selection-start-line="53" selection-start-column="8" selection-end-line="53" selection-end-column="8" />
               <folding>
-                <element signature="e#138#1595#0" expanded="false" />
-                <element signature="e#1707#1908#0" expanded="false" />
-                <element signature="e#2021#3294#0" expanded="false" />
+                <element signature="e#3561#3580#0" expanded="false" />
+                <element signature="e#4415#4923#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="aex.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/packages/aex.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="279">
+              <caret line="67" column="13" lean-forward="true" selection-start-line="67" selection-start-column="13" selection-end-line="67" selection-end-column="13" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -139,8 +168,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/currency.py" />
-        <option value="$PROJECT_DIR$/currency_pair.py" />
         <option value="$PROJECT_DIR$/error.py" />
         <option value="$PROJECT_DIR$/spotAPI.py" />
         <option value="$PROJECT_DIR$/mysql_API.py" />
@@ -162,7 +189,6 @@
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/robot3.py" />
         <option value="$PROJECT_DIR$/packages/connection.py" />
-        <option value="$PROJECT_DIR$/test/test_for_aex.py" />
         <option value="$PROJECT_DIR$/robot2.py" />
         <option value="$PROJECT_DIR$/aex-robot-tri-arbi.py" />
         <option value="$PROJECT_DIR$/digiFinex三角套.py" />
@@ -176,7 +202,6 @@
         <option value="$PROJECT_DIR$/OKEx/okex.py" />
         <option value="$PROJECT_DIR$/OKEx/spotAPI.py" />
         <option value="$PROJECT_DIR$/packages/account.py" />
-        <option value="$PROJECT_DIR$/packages/aex.py" />
         <option value="$PROJECT_DIR$/packages/coin.py" />
         <option value="$PROJECT_DIR$/packages/color.py" />
         <option value="$PROJECT_DIR$/packages/digifinex.py" />
@@ -184,12 +209,16 @@
         <option value="$PROJECT_DIR$/packages/error_code.py" />
         <option value="$PROJECT_DIR$/packages/exchange.py" />
         <option value="$PROJECT_DIR$/packages/math2.py" />
-        <option value="$PROJECT_DIR$/packages/universal.py" />
         <option value="$PROJECT_DIR$/packages/util.py" />
-        <option value="$PROJECT_DIR$/packages/currency_pair.py" />
         <option value="$PROJECT_DIR$/test/test_for_digifinex.py" />
         <option value="$PROJECT_DIR$/strategies/triangle_arbitrage.py" />
         <option value="$PROJECT_DIR$/test/test_for_triangle_arbitrige.py" />
+        <option value="$PROJECT_DIR$/packages/currency_pair.py" />
+        <option value="$PROJECT_DIR$/aex/robot1.py" />
+        <option value="$PROJECT_DIR$/packages/aex.py" />
+        <option value="$PROJECT_DIR$/test/test_for_aex.py" />
+        <option value="$PROJECT_DIR$/packages/universal.py" />
+        <option value="$PROJECT_DIR$/test/test_for_universal.py" />
       </list>
     </option>
   </component>
@@ -246,27 +275,13 @@
             <path>
               <item name="robot-master" type="b2602c69:ProjectViewProjectNode" />
               <item name="robot-master" type="462c0819:PsiDirectoryNode" />
-              <item name="net" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="robot-master" type="b2602c69:ProjectViewProjectNode" />
-              <item name="robot-master" type="462c0819:PsiDirectoryNode" />
-              <item name="OKEx" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="robot-master" type="b2602c69:ProjectViewProjectNode" />
-              <item name="robot-master" type="462c0819:PsiDirectoryNode" />
               <item name="packages" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="robot-master" type="b2602c69:ProjectViewProjectNode" />
               <item name="robot-master" type="462c0819:PsiDirectoryNode" />
-              <item name="shit" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="robot-master" type="b2602c69:ProjectViewProjectNode" />
-              <item name="robot-master" type="462c0819:PsiDirectoryNode" />
-              <item name="strategies" type="462c0819:PsiDirectoryNode" />
+              <item name="packages" type="462c0819:PsiDirectoryNode" />
+              <item name="universal.py" type="8704e2dd:PyFileNode" />
             </path>
             <path>
               <item name="robot-master" type="b2602c69:ProjectViewProjectNode" />
@@ -312,38 +327,20 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.test_for_triangle_arbitrige">
-    <configuration name="aex-robot-tri-arbi" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.test_for_universal">
+    <configuration name="test_for_aex" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="python" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/aex-robot-tri-arbi.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration name="digiFinex三角套" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="python" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/digiFinex三角套.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test/test_for_aex.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -403,20 +400,38 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
+    <configuration name="test_for_universal" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="python" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test/test_for_universal.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.test_for_digifinex" />
       <item index="1" class="java.lang.String" itemvalue="Python.test_for_currency_pair" />
-      <item index="2" class="java.lang.String" itemvalue="Python.digiFinex三角套" />
-      <item index="3" class="java.lang.String" itemvalue="Python.test_for_triangle_arbitrige" />
-      <item index="4" class="java.lang.String" itemvalue="Python.aex-robot-tri-arbi" />
+      <item index="2" class="java.lang.String" itemvalue="Python.test_for_triangle_arbitrige" />
+      <item index="3" class="java.lang.String" itemvalue="Python.test_for_aex" />
+      <item index="4" class="java.lang.String" itemvalue="Python.test_for_universal" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.test_for_triangle_arbitrige" />
-        <item index="1" class="java.lang.String" itemvalue="Python.test_for_digifinex" />
-        <item index="2" class="java.lang.String" itemvalue="Python.test_for_currency_pair" />
-        <item index="3" class="java.lang.String" itemvalue="Python.aex-robot-tri-arbi" />
-        <item index="4" class="java.lang.String" itemvalue="Python.digiFinex三角套" />
+        <item index="0" class="java.lang.String" itemvalue="Python.test_for_universal" />
+        <item index="1" class="java.lang.String" itemvalue="Python.test_for_aex" />
+        <item index="2" class="java.lang.String" itemvalue="Python.test_for_triangle_arbitrige" />
+        <item index="3" class="java.lang.String" itemvalue="Python.test_for_digifinex" />
+        <item index="4" class="java.lang.String" itemvalue="Python.test_for_currency_pair" />
       </list>
     </recent_temporary>
   </component>
@@ -438,16 +453,17 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13646288" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32842582" sideWeight="0.50208336" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.91612905" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.91612905" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32795697" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31612903" sideWeight="0.49791667" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.944086" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.5612903" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -522,12 +538,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/test/test_for_aex.py</url>
-          <line>16</line>
+          <line>79</line>
           <option name="timeStamp" value="210" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/packages/aex.py</url>
-          <line>101</line>
+          <line>105</line>
           <option name="timeStamp" value="241" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -547,12 +563,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/packages/universal.py</url>
-          <line>490</line>
+          <line>549</line>
           <option name="timeStamp" value="308" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/packages/universal.py</url>
-          <line>503</line>
+          <line>562</line>
           <option name="timeStamp" value="309" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -562,7 +578,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/test/test_for_triangle_arbitrige.py</url>
-          <line>58</line>
+          <line>59</line>
           <option name="timeStamp" value="315" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -577,8 +593,23 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/test/test_for_triangle_arbitrige.py</url>
-          <line>57</line>
+          <line>58</line>
           <option name="timeStamp" value="346" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/test/test_for_triangle_arbitrige.py</url>
+          <line>26</line>
+          <option name="timeStamp" value="362" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/test/test_for_aex.py</url>
+          <line>77</line>
+          <option name="timeStamp" value="364" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/test/test_for_universal.py</url>
+          <line>22</line>
+          <option name="timeStamp" value="369" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -588,14 +619,11 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="348" />
+      <option name="time" value="370" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/API_list.csv" />
-    <entry file="file:///usr/local/lib/python3.5/dist-packages/numpy/core/_methods.py" />
-    <entry file="file:///usr/lib/python3/dist-packages/apport_python_hook.py" />
     <entry file="file:///usr/lib/python3.5/copy.py" />
     <entry file="file://$PROJECT_DIR$/obsolete/trading_bot1.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -677,16 +705,6 @@
             <element signature="e#2581#2674#1" expanded="false" />
             <element signature="e#3762#4222#0" expanded="false" />
             <element signature="e#4612#4705#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/test_for_aex.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="9" column="23" lean-forward="true" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -833,14 +851,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/packages/aex.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="21" lean-forward="false" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/packages/coin.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
@@ -889,19 +899,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/packages/universal.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="21" lean-forward="false" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
-          <folding>
-            <element signature="e#6864#7476#0" expanded="false" />
-            <element signature="e#7580#8195#0" expanded="false" />
-            <element signature="e#12566#13677#0" expanded="false" />
-            <element signature="e#14418#15562#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/packages/util.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
@@ -910,15 +907,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/packages/currency_pair.py">
+    <entry file="file://$USER_HOME$/PycharmProjects/app1/venv/lib/python3.5/site-packages/requests/adapters.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="86" column="0" lean-forward="true" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
-          <folding>
-            <element signature="e#138#1595#0" expanded="false" />
-            <element signature="e#1707#1908#0" expanded="false" />
-            <element signature="e#2021#3294#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="16">
+          <caret line="512" column="0" lean-forward="false" selection-start-line="512" selection-start-column="0" selection-end-line="512" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/test_for_digifinex.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="3" column="39" lean-forward="true" selection-start-line="3" selection-start-column="39" selection-end-line="3" selection-end-column="39" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -932,36 +933,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/strategies/triangle_arbitrage.py">
+    <entry file="file://$USER_HOME$/PycharmProjects/app1/venv/lib/python3.5/codecs.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
-          <caret line="207" column="0" lean-forward="true" selection-start-line="207" selection-start-column="0" selection-end-line="207" selection-end-column="0" />
-          <folding>
-            <element signature="e#3833#4273#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/test_for_digifinex.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="3" column="39" lean-forward="true" selection-start-line="3" selection-start-column="39" selection-end-line="3" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/PycharmProjects/app1/venv/lib/python3.5/site-packages/requests/adapters.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="16">
-          <caret line="512" column="0" lean-forward="false" selection-start-line="512" selection-start-column="0" selection-end-line="512" selection-end-column="0" />
+        <state relative-caret-position="126">
+          <caret line="308" column="0" lean-forward="false" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/packages/digifinex.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134">
-          <caret line="66" column="37" lean-forward="true" selection-start-line="66" selection-start-column="37" selection-end-line="66" selection-end-column="37" />
+        <state relative-caret-position="9">
+          <caret line="53" column="8" lean-forward="false" selection-start-line="53" selection-start-column="8" selection-end-line="53" selection-end-column="8" />
           <folding>
             <element signature="e#3561#3580#0" expanded="false" />
             <element signature="e#4415#4923#0" expanded="false" />
@@ -971,8 +954,73 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test/test_for_triangle_arbitrige.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="54" column="21" lean-forward="true" selection-start-line="54" selection-start-column="21" selection-end-line="54" selection-end-column="21" />
+        <state relative-caret-position="123">
+          <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="59" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/aex.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="67" column="13" lean-forward="true" selection-start-line="67" selection-start-column="13" selection-end-line="67" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/strategies/triangle_arbitrage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="905">
+          <caret line="207" column="0" lean-forward="true" selection-start-line="207" selection-start-column="0" selection-end-line="207" selection-end-column="0" />
+          <folding>
+            <element signature="e#3833#4273#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/currency_pair.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="50" column="28" lean-forward="true" selection-start-line="50" selection-start-column="28" selection-end-line="50" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/aex/robot1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="67" column="0" lean-forward="true" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/test_for_aex.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="68" column="13" lean-forward="true" selection-start-line="68" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
+          <folding>
+            <element signature="e#380#416#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/universal.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="371">
+          <caret line="188" column="35" lean-forward="true" selection-start-line="188" selection-start-column="35" selection-end-line="188" selection-end-column="35" />
+          <folding>
+            <element signature="e#8885#9497#0" expanded="false" />
+            <element signature="e#9601#10216#0" expanded="false" />
+            <element signature="e#14587#15698#0" expanded="false" />
+            <element signature="e#16439#17583#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/test_for_universal.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="17" column="19" lean-forward="true" selection-start-line="17" selection-start-column="19" selection-end-line="17" selection-end-column="19" />
           <folding />
         </state>
       </provider>
