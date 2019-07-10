@@ -10,7 +10,9 @@ sys.path.append("..")
 from packages import error_code
 import json
 import time
+import math
 from packages import digifinex as DIGIFINEX
+from packages import currency_pair as CP
 
 class OrderInfo:
     def __init__(self,market, currency_pair, result, params):
@@ -43,6 +45,17 @@ class OrderInfo:
                 else:
                     self.message = error_code.Error_code_for_OKEx[result["error_code"]]
                     self.message = result["error_code"]
+            if market=='digifinex':
+                result=json.loads(result)
+                self.order_id = ""
+                if result['code']==0:
+                    self.order_id=result['order_id']
+                    self.price = params["price"]
+                    self.amount = params["amount"]
+                    self.type = params["type"]
+                    self.message = "操作成功"
+                else:
+                    self.message = error_code.Error_code_for_DigiFinex[result["code"]]
         except Exception as e:
             self.order_ids=[]
             self.message=e
@@ -90,6 +103,26 @@ class SubmittedOrderList:
                 self.message='操作成功'
             else:
                 self.message= error_code.Error_code_for_OKEx[result["error_code"]]
+        if market=='digifinex':
+            result=json.loads(result)
+            if result['code']==0:
+                self.orders=[]
+                for order in result['orders']:
+                    currency_pair=CP.CurrencyPair(str(order['symbol']).split('_')[1],str(order['symbol']).split('_')[0])
+                    id=order['order_id']
+                    price=float(order['price'])
+                    total_amount=float(order['amount'])
+                    trade_amount=float(order['executed_amount'])
+                    status=int(order['status'])
+                    trade_price=float(order['avg_price'])
+                    trade_money=float(order['cash_amount'])
+                    trade_type = (1 if order["type"] == "buy" else 0)
+                    this_order = SubmittedOrder(currency_pair, id, price, status, total_amount, trade_amount,
+                                                trade_money, trade_price, trade_type)
+                    self.orders.append(this_order)
+                self.message='操作成功'
+            else:
+                self.message=error_code.Error_code_for_DigiFinex[result['code']]
 
 class SubmittedOrder:
     def __init__(self, currency_pair, id, price, status, total_amount,
@@ -135,6 +168,15 @@ class CancelOrderResult:
                     self.result=False
                     self.message= error_code.Error_code_for_OKEx[result["error_code"]]
                     self.id=order_id
+        if market=="digifinex":
+            result=json.loads(result)
+            if result['code']==0:
+                self.message='操作成功'
+                self.successful_orders_ids=result['success']
+                self.failed_orders_ids = result['error']
+            else:
+                self.failed_orders_ids=order_id
+                self.message=error_code.Error_code_for_DigiFinex[result['code']]
 
 class Order:
     def __init__(self,price , amount):
@@ -167,26 +209,26 @@ class Depth(object):
         for bid in depths[0].bids:
             price=bid.price
             amount=bid.amount
-            flag=1  # after having iterated all bids of other depths and find a bid that has the same price as this one, flag+=1
+            weight=1  # after having iterated all bids of other depths and find a bid that has the same price as this one, flag+=1
             for cnt in range(1,len(depths)):
                 for bid1 in depths[cnt].bids:
                     if bid1.price==price:
                         amount=min(amount,bid1.amount)
-                        flag+=1
-            if flag==len(depths):
+                        weight+=1
+            if weight==len(depths):
                 bids.append(Bid(price,amount))
 
 
         for ask in depths[0].asks:
             price = ask.price
             amount = ask.amount
-            flag = 1  # after having iterated all bids of other depths and find a bid that has the same price as this one, flag+=1
+            weight = 1  # after having iterated all bids of other depths and find a bid that has the same price as this one, flag+=1
             for cnt in range(1, len(depths)):
                 for ask1 in depths[cnt].asks:
                     if ask1.price == price:
                         amount = min(amount, ask1.amount)
-                        flag += 1
-            if flag == len(depths):
+                        weight += 1
+            if weight == len(depths):
                 asks.append(Ask(price, amount))
 
         result_depth=Depth(
@@ -199,6 +241,26 @@ class Depth(object):
         return result_depth
         pass
 
+    @classmethod
+    def get_supporting_points(cls, depth, weighted_by='vol', distance=1):
+        acc_bid_vol = 0
+        acc_ask_vol = 0
+        cnt = 0
+        bid_price = depth.bids[-1].price  # in case can not find a proper point, set this price to a very distant price in the 1st place
+        ask_price = depth.asks[-1].price
+        for bid in depth.bids:
+            acc_bid_vol += bid.amount
+            if acc_bid_vol >= distance:
+                bid_price = bid.price
+                break
+        for ask in depth.asks:
+            acc_ask_vol += ask.amount
+            if acc_ask_vol >= distance:
+                ask_price = ask.price
+                break
+        supporting_points = [bid_price, ask_price]
+        return supporting_points
+        pass
 
     def __init__(self, market, currency_pair, result=None, bids=None,asks=None):
         '''
@@ -303,42 +365,42 @@ class Depth(object):
         else:
             pass
 
-    def get_supporting_points(self, weighted_by=None, distance=1, referencial_currency=''):
-        CONSTANT=1
-        if referencial_currency=='usdt':
-            CONSTANT=10000
-        supporting_points=[0,0]
-        if weighted_by==None:
-            ask0=self.asks[0].price
-            bid0=self.bids[0].price
-            my_ask=99999
-            my_bid=0
-
-            if ask0-bid0<=0.00000002*CONSTANT:
-                my_ask=ask0
-                my_bid=bid0
-            else:
-                my_ask=ask0-0.00000001*CONSTANT
-                my_bid=bid0+0.00000001*CONSTANT
-            return [my_bid,my_ask]
-        elif weighted_by=="vol":
-            acc_bid_vol=0
-            acc_ask_vol=0
-            cnt=0
-            bid_price=self.bids[-1].price  # in case can not find a proper point, set this price to a very distant price in the 1st place
-            ask_price=self.asks[-1].price
-            for bid in self.bids:
-                acc_bid_vol+=bid.amount
-                if acc_bid_vol>=distance:
-                    bid_price=bid.price
-                    break
-            for ask in self.asks:
-                acc_ask_vol+=ask.amount
-                if acc_ask_vol>=distance:
-                    ask_price=ask.price
-                    break
-            supporting_points=[bid_price,ask_price]
-            return supporting_points
+    # def get_supporting_points(self, weighted_by=None, distance=1, referencial_currency=''):
+    #     CONSTANT=1
+    #     if referencial_currency=='usdt':
+    #         CONSTANT=10000
+    #     supporting_points=[0,0]
+    #     if weighted_by==None:
+    #         ask0=self.asks[0].price
+    #         bid0=self.bids[0].price
+    #         my_ask=99999
+    #         my_bid=0
+    #
+    #         if ask0-bid0<=0.00000002*CONSTANT:
+    #             my_ask=ask0
+    #             my_bid=bid0
+    #         else:
+    #             my_ask=ask0-0.00000001*CONSTANT
+    #             my_bid=bid0+0.00000001*CONSTANT
+    #         return [my_bid,my_ask]
+    #     elif weighted_by=="vol":
+    #         acc_bid_vol=0
+    #         acc_ask_vol=0
+    #         cnt=0
+    #         bid_price=self.bids[-1].price  # in case can not find a proper point, set this price to a very distant price in the 1st place
+    #         ask_price=self.asks[-1].price
+    #         for bid in self.bids:
+    #             acc_bid_vol+=bid.amount
+    #             if acc_bid_vol>=distance:
+    #                 bid_price=bid.price
+    #                 break
+    #         for ask in self.asks:
+    #             acc_ask_vol+=ask.amount
+    #             if acc_ask_vol>=distance:
+    #                 ask_price=ask.price
+    #                 break
+    #         supporting_points=[bid_price,ask_price]
+    #         return supporting_points
     '''
     here distance means accumulated amount, e.g:
     bid0: 0.1
@@ -486,7 +548,53 @@ class Trades:
     this class represents a series of trades, whose attribute trades is an array of TradeInfo instances
     this class has 3 data members: :market, :currency, :trades, message
     '''
+    
+    @classmethod
+    def statistics(cls, trades):
 
+        sum_price=0
+        total_amount=0
+        num_of_transactions=0
+        num_of_buying_transactions=0
+        num_of_selling_transactions=0
+        accumulated_buying_amount=0
+        accumulated_selling_amount=0
+        accumulated_price=0
+        accumulated_buying_price=0
+        accumulated_selling_price=0
+        timespan=trades.trades[0].timestamp-trades.trades[-1].timestamp
+        for trade in trades.trades:
+            num_of_transactions+=1
+            sum_price+=trade.price
+            total_amount+=trade.amount
+            accumulated_price+=trade.price*trade.amount
+            if trade.trade_type==1:
+                num_of_buying_transactions+=1
+                accumulated_buying_amount+=trade.amount
+                accumulated_buying_price+=trade.price*trade.amount
+            else:
+                num_of_selling_transactions+=1
+                accumulated_selling_amount+=trade.amount
+                accumulated_selling_price+=trade.amount*trade.price
+
+
+        avg_price_by_amount= accumulated_price/total_amount
+        avg_buy_by_amount= accumulated_buying_price/accumulated_buying_amount
+        avg_sell_by_amount= accumulated_selling_price/accumulated_selling_amount
+        buying_amount= accumulated_buying_amount
+        selling_amount= accumulated_selling_amount
+        avg_amount_by_transaction= total_amount/len(trades.trades)
+        result = {
+            'avg_price_by_amount': avg_price_by_amount,
+            'avg_buy_by_amount': avg_buy_by_amount,
+            'avg_sell_by_amount': avg_sell_by_amount,
+            'total_amount': total_amount,
+            'buying_amount': buying_amount,
+            'selling_amount': selling_amount,
+            'avg_amount_by_transaction': avg_amount_by_transaction,
+            'avg_amount_per_second':total_amount/timespan
+        }
+        return result
     def __init__(self,market, currency_pair, result, status, user_id=None):
         self.market=market
         self.currency_pair=currency_pair
@@ -518,6 +626,21 @@ class Trades:
                     self.trades.append(trade)
                 self.message="操作成功"
                 self.trades.reverse()
+            if market=="digifinex":
+                result=json.loads(result)['data']
+                for item in result:
+                    if str(item["type"])=='buy':
+                        trade_type=1
+                    else:
+                        trade_type=0
+                    price=float(item['price'])
+                    amount=float(item['amount'])
+                    date= item['date']
+                    tid=int(item['id'])
+                    trade=TradeInfo(date,price,amount,trade_type,tid,status)
+                    self.trades.append(trade)
+                self.message="操作成功"
+                # self.trades.reverse()
         except Exception as e:
             self.message=e
 
@@ -578,3 +701,42 @@ class BalanceInfo:
                     self.message= error_code.Error_code_for_OKEx[dict(result)["error_code"]]
         except Exception as e:
             self.message=e
+
+class CurrencyPairInfos:
+    def __init__(self, market, result):
+        # currency_pair, amount_precision, price_precision, minimum_amount=None, minimum_money=None
+        market = str(market).lower()
+        if market == 'digifinex':
+            self.currency_pair_infos={}
+            result = json.loads(result)
+            if result['code'] == 0:
+                data = result['data']
+                for key in data.keys():
+                    __currencies=str(key).split('_')
+                    currency_pair=CP.CurrencyPair(__currencies[1],__currencies[0])
+                    amount_precision=data[key][0]
+                    price_precision=data[key][1]
+                    minimum_amount=data[key][2]
+                    minimum_money=data[key][3]
+                    currency_pair_info=CurrencyPairInfo(currency_pair,amount_precision,price_precision,minimum_amount,minimum_money)
+                    self.currency_pair_infos[currency_pair.toString()]=currency_pair_info
+                self.message = '操作成功'
+            else:
+                self.message = error_code.Error_code_for_DigiFinex[result['code']]
+
+class CurrencyPairInfo:
+    '''
+    message:
+
+    currency_pair: of CurrencyPair
+    amount_precision: 数量精度
+    price_precision: 价格精度
+    minimum_amount: 最小下单数量
+    minimum_money: 最小下单金额
+    '''
+    def __init__(self, currency_pair, amount_precision, price_precision, minimum_amount=None, minimum_money=None):
+        self.currency_pair=currency_pair
+        self.amount_precision=amount_precision
+        self.price_precision=price_precision
+        self.minimum_amount=minimum_amount
+        self.minimum_money=minimum_money

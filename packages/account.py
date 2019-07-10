@@ -90,3 +90,14 @@ class Account:
                 holdings[key1]+=self.balance_info.frozen[coin_name]
             if coin_name==key2:
                 holdings[key2]+=self.balance_info.frozen[coin_name]
+
+    def set_initial_positions(self, positions):
+        '''
+
+        :param positions: a dict like {
+            'btc':123,
+            'usdt':456
+        }
+        :return:
+        '''
+        self.initial_positions=positions

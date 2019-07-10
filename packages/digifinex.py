@@ -51,6 +51,16 @@ class DigiFinex(EXCHANGE.Exchange):
         else:
             self.base_url=EXCHANGE.Exchange.MARKET_BASEURL_MAPPING['DigiFinex']
 
+    def get_currency_pairs_info(self):
+        # GET https://openapi.digifinex.vip/v2/trade_pairs?apiKey=59328e10e296a&timestamp=1410431266&sign=0a8d39b515fd8f3f8b848a4c459884c2
+        INFO_RESOURCE='/v2/trade_pairs'
+        params = {}
+        params['timestamp'] = str(time.time())
+        params['sign'] = sign(self.account, params)
+        result = requests.get(self.base_url + INFO_RESOURCE, params)
+        result = universal.CurrencyPairInfos(self.MARKET, result.text)
+        return result
+
     def ticker(self, currency_pair=None):
         # https://openapi.digifinex.vip/v2/ticker?apiKey=15d12cfa0a69be
         # https://openapi.digifinex.vip/v2/ticker?symbol=usdt_btc&apiKey=15d12cfa0a69be
@@ -114,10 +124,10 @@ class DigiFinex(EXCHANGE.Exchange):
             result = universal.Depth(self.MARKET, currency_pair, result.text)
             return result
 
-    def trades(self, currency_pair, raw=False):
-        # https://api.aex.zone/trades.php?c=btc&mk_type=cnc
-        TRADES_RESOURCE = "/trades.php"
-        params = make_currency_pair_string(currency_pair)
+    def trades(self, currency_pair, limit=300, raw=False):
+        # https://openapi.digifinex.com/v3/trades?market=btc_usdt&limit=30
+        TRADES_RESOURCE = "/v3/trades"
+        params = 'market=' + currency_pair.base + '_' + currency_pair.reference + '&limit=' + str(limit)
         result = requests.get(self.base_url + TRADES_RESOURCE, params)
         if result.status_code!=200:
             return ERRORCODE.Error_Code_For_Status_Code[result.status_code]
@@ -140,30 +150,71 @@ class DigiFinex(EXCHANGE.Exchange):
         return result
 
     def submit_order(self, type, currency_pair, price, amount):
-        from packages import util
-        aex2 = util.Client(self.account.api_key, self.account.secret_key, self.user_id)
-        result = aex2.submitOrder(type,currency_pair.reference,price,amount,currency_pair.base)
-        type="buy" if type==1 else "sell"
-        result = universal.OrderInfo(self.MARKET, currency_pair, result, {'price':price,'amount':amount,'type':type})
+        # https: // openapi.digifinex.vip / v2 / trade
+        # POST参数:
+        # symbol = usdt_btc
+        # price = 6000.12
+        # amount = 0.1
+        # type = buy
+        # apiKey = 59328e10e296a
+        # timestamp = 1410431266
+        # sign = 0a8d39b515fd8f3f8b848a4c459884c2
+        SUBMITORDER_RESOURCE='/v2/trade'
+        timestamp = int(time.time())
+        type="buy" if (type==1 or type=='1' or str(type).lower()=="buy") else "sell"
+        params = {
+            'timestamp': timestamp,
+            'type':type,
+            'price':price,
+            'amount':amount,
+            'symbol':make_currency_pair_string(currency_pair)
+        }
+        params['sign'] = sign(self.account, params)
+        result = requests.post(self.base_url + SUBMITORDER_RESOURCE, data=params)
+        result = universal.OrderInfo(self.MARKET, currency_pair, result.text, {'price':price,'amount':amount,'type':type})
         return result
 
-    def cancel_order(self,currency_pair,order_id):
-        from packages import util
-        aex2 = util.Client(self.account.api_key, self.account.secret_key, self.user_id)
-        result = aex2.cancelOrder(currency_pair.reference,order_id,currency_pair.base)
-        result = universal.CancelOrderResult(self.MARKET,currency_pair,result,order_id)
+    def cancel_order(self,currency_pair,order_ids):
+        # POST https: // openapi.digifinex.vip / v2 / cancel_order
+        # POST参数:
+        # order_id = 1000001, 1000002, 1000003
+        # apiKey = 59328e10e296a
+        # timestamp = 1410431266
+        # sign = 0a8d39b515fd8f3f8b848a4c459884c2
+        CANCEL_ORDER_RESOURCE = '/v2/cancel_order'
+        timestamp = int(time.time())
+        if isinstance(order_ids,str):
+            _order_ids=order_ids
+        if isinstance(order_ids,list):
+            _order_ids = list(map(lambda x: str(x), order_ids))
+            _order_ids = ','.join(_order_ids)
+
+        params = {
+            'timestamp': timestamp,
+            'order_id': _order_ids,
+        }
+        params['sign'] = sign(self.account, params)
+        result = requests.post(self.base_url + CANCEL_ORDER_RESOURCE, data=params)
+        result = universal.CancelOrderResult(self.MARKET, currency_pair, result.text,order_ids)
         return result
 
-    def order_list(self,currency_pair, current_page=1, page_length=200):
-        from packages import util
-        aex2 = util.Client(self.account.api_key, self.account.secret_key, self.user_id)
-        result = aex2.getOrderList(currency_pair.base,currency_pair.reference)
-        result=universal.SubmittedOrderList(currency_pair,self.MARKET,result)
+    def order_list(self,currency_pair=None, current_page=1, page_length=200):
+        # symbol, page, type are optional
+        # https://openapi.digifinex.vip/v2/open_orders?symbol=usdt_btc&page=1&apiKey=59328e10e296a&timestamp=1410431266&sign=0a8d39b515fd8f3f8b848a4c459884c2
+
+        ORDER_LIST_RESOURCE='/v2/open_orders'
+        params={}
+        params['timestamp']=str(time.time())
+        if currency_pair:
+            params['symbol']= make_currency_pair_string(currency_pair)
+        if current_page:
+            params['page']=str(current_page)
+        params['sign']=sign(self.account,params)
+
+        result = requests.get(self.base_url + ORDER_LIST_RESOURCE, params)
+        result = universal.SubmittedOrderList(currency_pair, self.MARKET, result.text )
         return result
 
     def trade_list(self,currency_pair, current_page=1, page_length=200):
-        from packages import util
-        aex2 = util.Client(self.account.api_key, self.account.secret_key, self.user_id)
-        result = aex2.getMyTradeList(currency_pair.reference,currency_pair.base,current_page)
-        result = universal.Trades(self.MARKET, currency_pair,result,2, self.user_id)
-        return result
+        # TO BE IMPLEMENTED
+        pass

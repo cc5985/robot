@@ -56,10 +56,12 @@ class AEX(EXCHANGE.Exchange):
             result = universal.Depth(self.MARKET, currency_pair, result.text)
             return result
 
-    def trades(self, currency_pair, raw=False):
+    def trades(self, currency_pair, tid=None, raw=False):
         # https://api.aex.zone/trades.php?c=btc&mk_type=cnc
         TRADES_RESOURCE = "/trades.php"
         params = make_currency_pair_string(currency_pair)
+        if not tid is None:
+            params+='&tid='+str(tid)
         result = requests.get(self.base_url + TRADES_RESOURCE, params)
         if result.status_code!=200:
             return ERRORCODE.Error_Code_For_Status_Code[result.status_code]

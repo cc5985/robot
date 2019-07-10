@@ -12,15 +12,25 @@ account=ACCOUNT.Account('426817f2228d6d8f485dff7b8a9aee71','41ebfb59508cd77031a2
 aex=AEX.AEX(account,USER_ID)
 currency_pair=CP.CurrencyPair('btc','cny')
 
-t1=time.time()
-depths=[]
-for cnt in range(0,5):
-    depth=aex.depth(currency_pair)
-    # time.sleep(1)
-    depths.append(depth)
-t2=time.time()
-print(t2-t1)
-depth=universal.Depth.filter(depths)
-t3=time.time()
-print(t3-t2)
+
+# test for Depth.filter-------------------------------------------------------------------------------------
+# t1=time.time()
+# depths=[]
+# for cnt in range(0,3):
+#     depth=aex.depth(currency_pair)
+#     time.sleep(0.05)
+#     depths.append(depth)
+# t2=time.time()
+# print(t2-t1)
+# depth=universal.Depth.filter(depths)
+# t3=time.time()
+# print(t3-t2)
+# test for Depth.filter-------------------------------------------------------------------------------------
+
+# test for Depth.get_supporting_points----------------------------------------------------------------------
+depth=aex.depth(currency_pair)
+supporting_points=universal.Depth.get_supporting_points(depth,'vol',1)
+
+# test for Depth.get_supporting_points----------------------------------------------------------------------
+
 a=1

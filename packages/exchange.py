@@ -18,6 +18,9 @@ class Exchange:
         if not base_url is None:
             self.base_url = base_url
 
+    def get_currency_pairs_info(self):
+        pass
+
     def ticker(self, currency_pair):
         pass
 
