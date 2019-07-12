@@ -11,6 +11,7 @@ from packages import error_code
 import json
 import time
 import math
+import copy
 from packages import digifinex as DIGIFINEX
 from packages import currency_pair as CP
 
@@ -180,8 +181,8 @@ class CancelOrderResult:
 
 class Order:
     def __init__(self,price , amount):
-        self.price=price
-        self.amount=amount
+        self.price=float(price)
+        self.amount=float(amount)
 
 
 class Bid(Order):
@@ -262,7 +263,7 @@ class Depth(object):
         return supporting_points
         pass
 
-    def __init__(self, market, currency_pair, result=None, bids=None,asks=None):
+    def __init__(self, market, currency_pair, result=None, bids=[],asks=[]):
         '''
         the Depth class instance has the following data members:
         bids:  Array of Bid
@@ -305,8 +306,25 @@ class Depth(object):
                     self.asks.reverse()
                 elif dict(result).__contains__("error_code"):
                     self.message= error_code.Error_code_for_OKEx[result["error_code"]]
-            elif market=="chbtc":
-                pass
+            elif market=="kraken":
+
+                bss=[]
+                ass=[]
+                if result.__contains__('as'):
+                    ass=result['as']
+                if result.__contains__('a'):
+                    ass=result['a']
+                if result.__contains__('bs'):
+                    bss=result['bs']
+                if result.__contains__('b'):
+                    bss=result['b']
+                for b in bss:
+                    bid=Bid(b[0],b[1])
+                    self.bids.append(bid)
+                for a in ass:
+                    ask=Ask(a[0],a[1])
+                    self.asks.append(ask)
+
             elif market=="aex":
                 result = json.loads(str(result))
                 if result.__contains__("asks"):
@@ -365,7 +383,59 @@ class Depth(object):
         else:
             pass
 
-    # def get_supporting_points(self, weighted_by=None, distance=1, referencial_currency=''):
+    def __add__(self, other):
+        '''
+        untested!!!!!
+        :param other:
+        :return:
+        '''
+        import copy
+        this=copy.deepcopy(self)
+        if other.currency_pair.toString()!=this.currency_pair.toString():
+            raise Exception('Depths of different currency pairs can not be added')
+        this.bids.extend(other.bids)
+        this.asks.extend(other.asks)
+        this.bids.sort(key=lambda x:x.price, reverse=True)
+        this.asks.sort(key=lambda x:x.price, reverse=True)
+        return this
+
+    def update(self, other):
+        '''
+        PASSED
+        update self.bids and self.asks with items in other.bids or asks
+        :param other:
+        :return:
+        '''
+        if other.currency_pair.toString()!=self.currency_pair.toString():
+            raise Exception('Depths of different currency pairs can not be added')
+        this=copy.deepcopy(self)
+        for ask in other.asks:
+            price=ask.price
+            amount=ask.amount
+            flag=False
+            for ask1 in this.asks:
+                if ask1.price==price:
+                    ask1.amount=amount
+                    flag=True
+            if flag==False:
+                this.asks.append(ask)
+        this.asks=list(filter(lambda x:x.amount!=0, this.asks))
+        this.asks.sort(key=lambda x:x.price, reverse=False)
+
+        for bid in other.bids:
+            price=bid.price
+            amount=bid.amount
+            flag=False
+            for bid1 in this.bids:
+                if bid1.price==price:
+                    bid1.amount=amount
+                    flag=True
+            if flag==False:
+                this.bids.append(bid)
+        this.bids = list(filter(lambda x: x.amount != 0, this.bids))
+        this.bids.sort(key=lambda x: x.price, reverse=True)
+        return this
+        # def get_supporting_points(self, weighted_by=None, distance=1, referencial_currency=''):
     #     CONSTANT=1
     #     if referencial_currency=='usdt':
     #         CONSTANT=10000

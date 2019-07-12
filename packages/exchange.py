@@ -1,7 +1,6 @@
 # -*- coding: UTF-8 -*-
 import sys
 sys.path.append("..")
-from packages import universal
 import time
 
 class Exchange:
@@ -10,7 +9,8 @@ class Exchange:
     MARKET_BASEURL_MAPPING={
         'AEX':'https://api.aex.zone',
         'OKEx': 'www.okex.com',
-        'DigiFinex':'https://openapi.digifinex.vip'
+        'DigiFinex':'https://openapi.digifinex.vip',
+        'Kraken':'wss://ws.kraken.com/', # this is a web socket subscription url
     }
 
     def __init__(self, account, base_url=None):
