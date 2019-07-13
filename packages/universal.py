@@ -416,10 +416,10 @@ class Depth(object):
             amount=ask.amount
             flag=False
             for ask1 in this.asks:
-                if ask1.price==price:
+                if abs(ask1.price-price)<0.00001:
                     ask1.amount=amount
                     flag=True
-                    continue
+
             if flag==False:
                 this.asks.append(ask)
         this.asks=list(filter(lambda x:x.amount!=0, this.asks))
@@ -430,7 +430,7 @@ class Depth(object):
             amount=bid.amount
             flag=False
             for bid1 in this.bids:
-                if bid1.price==price:
+                if abs(bid1.price-price)<0.00001:
                     bid1.amount=amount
                     flag=True
             if flag==False:

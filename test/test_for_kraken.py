@@ -26,8 +26,8 @@ while True:
         t3=time.time()
 
         length=len(trades.trades)
-        depth=depth.is_consumed_by(trades)
-        trades.trades=trades.trades[length:]
+        # depth=depth.is_consumed_by(trades)
+        # trades.trades=trades.trades[length:]
         # trades=trades.consume(depth)
 
         ask0=depth.asks[0].price

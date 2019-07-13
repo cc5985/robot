@@ -187,7 +187,7 @@ class Kraken(EXCHANGE.Exchange):
                 time.sleep(2)
             else:
                 # deal with self.responses:
-                responses=copy.copy(self.responses_for_depth)
+                responses=copy.deepcopy(self.responses_for_depth)
                 length=len(responses)
                 for item in responses:
                     result=copy.deepcopy(item)
