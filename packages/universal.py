@@ -453,7 +453,7 @@ class Depth(object):
                 for bid in self.bids:
                     if abs(bid.price-price)<0.0001:
                         bid.amount-=amount
-        trades.trades=trades.trades[length:]
+        # trades.trades=trades.trades[length:]
         return self
         # def get_supporting_points(self, weighted_by=None, distance=1, referencial_currency=''):
     #     CONSTANT=1
