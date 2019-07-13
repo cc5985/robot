@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="184357f1-618d-4614-929b-989eed110457" name="Default" comment="" />
+    <list default="true" id="184357f1-618d-4614-929b-989eed110457" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/test/test_for_kraken.py" afterPath="$PROJECT_DIR$/test/test_for_kraken.py" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -24,17 +26,17 @@
       <file leaf-file-name="universal.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/packages/universal.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="364">
-              <caret line="454" column="23" lean-forward="false" selection-start-line="454" selection-start-column="23" selection-end-line="454" selection-end-column="23" />
+            <state relative-caret-position="359">
+              <caret line="455" column="43" lean-forward="false" selection-start-line="455" selection-start-column="43" selection-end-line="455" selection-end-column="43" />
               <folding>
                 <element signature="e#2841#4023#0" expanded="false" />
                 <element signature="e#4062#4792#0" expanded="false" />
                 <element signature="e#11252#11476#0" expanded="false" />
                 <element signature="e#11799#12411#0" expanded="false" />
-                <element signature="e#20564#21675#0" expanded="false" />
-                <element signature="e#22416#23560#0" expanded="false" />
-                <element signature="e#26563#26955#0" expanded="false" />
-                <element signature="e#27002#27585#0" expanded="false" />
+                <element signature="e#20618#21729#0" expanded="false" />
+                <element signature="e#22470#23614#0" expanded="false" />
+                <element signature="e#26617#27009#0" expanded="false" />
+                <element signature="e#27056#27639#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -80,8 +82,8 @@
       <file leaf-file-name="test_for_kraken.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/test_for_kraken.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="27" column="42" lean-forward="true" selection-start-line="27" selection-start-column="42" selection-end-line="27" selection-end-column="42" />
+            <state relative-caret-position="418">
+              <caret line="36" column="34" lean-forward="true" selection-start-line="36" selection-start-column="34" selection-end-line="36" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -147,9 +149,9 @@
       <find>ask</find>
       <find>sort</find>
       <find>print</find>
-      <find>Exception</find>
-      <find>digifinex</find>
       <find>Caught this errr</find>
+      <find>digifinex</find>
+      <find>Exception</find>
     </findStrings>
     <replaceStrings>
       <replace>:</replace>
@@ -166,8 +168,8 @@
       <replace>['currency_pair']</replace>
       <replace>order</replace>
       <replace>depth</replace>
-      <replace>bid</replace>
       <replace>kraken</replace>
+      <replace>bid</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -224,9 +226,9 @@
         <option value="$PROJECT_DIR$/test/test_for_universal.py" />
         <option value="$PROJECT_DIR$/test/test_for_ws.py" />
         <option value="$PROJECT_DIR$/packages/exchange.py" />
-        <option value="$PROJECT_DIR$/test/test_for_kraken.py" />
         <option value="$PROJECT_DIR$/packages/kraken.py" />
         <option value="$PROJECT_DIR$/packages/universal.py" />
+        <option value="$PROJECT_DIR$/test/test_for_kraken.py" />
       </list>
     </option>
   </component>
@@ -684,13 +686,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/test/test_for_kraken.py</url>
-          <line>47</line>
+          <line>48</line>
           <option name="timeStamp" value="445" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/test/test_for_kraken.py</url>
-          <line>37</line>
-          <option name="timeStamp" value="548" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -1130,23 +1127,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/packages/universal.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="454" column="23" lean-forward="false" selection-start-line="454" selection-start-column="23" selection-end-line="454" selection-end-column="23" />
-          <folding>
-            <element signature="e#2841#4023#0" expanded="false" />
-            <element signature="e#4062#4792#0" expanded="false" />
-            <element signature="e#11252#11476#0" expanded="false" />
-            <element signature="e#11799#12411#0" expanded="false" />
-            <element signature="e#20564#21675#0" expanded="false" />
-            <element signature="e#22416#23560#0" expanded="false" />
-            <element signature="e#26563#26955#0" expanded="false" />
-            <element signature="e#27002#27585#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/packages/kraken.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1860">
@@ -1160,10 +1140,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/packages/universal.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="359">
+          <caret line="455" column="43" lean-forward="false" selection-start-line="455" selection-start-column="43" selection-end-line="455" selection-end-column="43" />
+          <folding>
+            <element signature="e#2841#4023#0" expanded="false" />
+            <element signature="e#4062#4792#0" expanded="false" />
+            <element signature="e#11252#11476#0" expanded="false" />
+            <element signature="e#11799#12411#0" expanded="false" />
+            <element signature="e#20618#21729#0" expanded="false" />
+            <element signature="e#22470#23614#0" expanded="false" />
+            <element signature="e#26617#27009#0" expanded="false" />
+            <element signature="e#27056#27639#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/test/test_for_kraken.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="27" column="42" lean-forward="true" selection-start-line="27" selection-start-column="42" selection-end-line="27" selection-end-column="42" />
+        <state relative-caret-position="418">
+          <caret line="36" column="34" lean-forward="true" selection-start-line="36" selection-start-column="34" selection-end-line="36" selection-end-column="34" />
           <folding />
         </state>
       </provider>
