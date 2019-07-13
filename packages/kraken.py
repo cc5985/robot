@@ -195,7 +195,7 @@ class Kraken(EXCHANGE.Exchange):
                     if len(result) < 2:
                         continue
                     if result[-2] == 'book-' + str(limit) and result[-1] == make_currency_pair_string(currency_pair):
-                        _result = copy.deepcopy(result[1])
+                        _result = result[1]
 
                         if isinstance(result[2], dict) == True:
                             _result.update(result[2])

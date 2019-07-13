@@ -60,6 +60,7 @@ class OrderInfo:
         except Exception as e:
             self.order_ids=[]
             self.message=e
+            print(e)
 
 #  this class represents the orders that you HAVE already submitted,
 # NOT the orders you are submitting!!!
@@ -354,6 +355,7 @@ class Depth(object):
                 self.asks.reverse()
         except Exception as e:
             self.message=e
+            print(e)
         finally:
             pass
 
@@ -444,12 +446,13 @@ class Depth(object):
             trade_type=trade.trade_type
             if trade_type==1:
                 for ask in self.asks:
-                    if abs(ask.price-price)<0.000001:
+                    if abs(ask.price-price)<0.0001:
                         ask.amount-=amount
             else:
                 for bid in self.bids:
-                    if abs(bid.price-price)<0.000001:
+                    if abs(bid.price-price)<0.0001:
                         bid.amount-=amount
+        trades.trades=[]
         return self
         # def get_supporting_points(self, weighted_by=None, distance=1, referencial_currency=''):
     #     CONSTANT=1
@@ -743,6 +746,7 @@ class Trades:
                 self.message="操作成功"
         except Exception as e:
             self.message=e
+            print(e)
 
 class BalanceInfo:
     '''
@@ -801,6 +805,7 @@ class BalanceInfo:
                     self.message= error_code.Error_code_for_OKEx[dict(result)["error_code"]]
         except Exception as e:
             self.message=e
+            print(e)
 
 class CurrencyPairInfos:
     def __init__(self, market, result):
