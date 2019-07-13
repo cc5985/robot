@@ -63,7 +63,10 @@ class Kraken(EXCHANGE.Exchange):
             try:
                 # wscat -c wss://ws.kraken.com/
                 self.ws = create_connection(self.base_url)
+                print('web socket connection has established!')
                 self.is_depth_subscribed=False
+                self.is_trades_subscribed=False
+                self._on_reading_message_flag = False
             except Exception as error:
                 print('Caught this errr: ' + repr(error))
                 time.sleep(3)
@@ -80,24 +83,52 @@ class Kraken(EXCHANGE.Exchange):
             "pair": [pair],
             # "subscription": {"name": "ticker"}
             # "subscription": {"name": "spread"}
-            # "subscription": {"name": "trade"}
+            # "subscription": {"name": "trade"},
             "subscription": {"name": "book", "depth": limit}
             # "subscription": {"name": "ohlc", "interval": 5}
         }))
+        print('subscription for depth has been sent!')
         self.is_depth_subscribed=True
-        self._on_reading_depth(currency_pair,limit)
+        if self._on_reading_message_flag==False:
+            self._on_reading_message(currency_pair)
 
-    def _on_reading_depth(self,currency_pair,limit):
-        self.responses=[]
+    def _create_trades_link(self, currency_pair):
+        self._trades = universal.Trades('Kraken', currency_pair, [], 2)
+        pair = make_currency_pair_string(currency_pair)
+        self.ws.send(json.dumps({
+            "event": "subscribe",
+            # "event": "ping",
+            "pair": [pair],
+            # "subscription": {"name": "ticker"}
+            # "subscription": {"name": "spread"}
+            "subscription": {"name": "trade"},
+            # "subscription": {"name": "book", "depth": limit}
+            # "subscription": {"name": "ohlc", "interval": 5}
+        }))
+        print('subscription for trades has been sent!')
+        self.is_trades_subscribed = True
+        if self._on_reading_message_flag==False:
+            self._on_reading_message(currency_pair)
+
+
+    def _on_reading_message(self,currency_pair):
+        self.responses_for_depth=[]
+        self.responses_for_trades=[]
+        self._on_reading_message_flag=True
+
         while True:
             try:
                 result = self.ws.recv()
-                self.responses.append(result)
-
+                _result=json.loads(result)
+                if isinstance(_result,list) and len(_result)>3 and  str(_result[-2]).find('book-')!=-1:
+                    self.responses_for_depth.append(result)
+                    continue
+                if isinstance(_result,list) and len(_result)>3 and  _result[-2]=='trade':
+                    self.responses_for_trades.append(result)
+                    continue
             except Exception as error:
                 print('Caught this error: ' + repr(error))
                 time.sleep(3)
-
 
     def get_currency_pairs_info(self):
         # GET https://openapi.digifinex.vip/v2/trade_pairs?apiKey=59328e10e296a&timestamp=1410431266&sign=0a8d39b515fd8f3f8b848a4c459884c2
@@ -153,9 +184,10 @@ class Kraken(EXCHANGE.Exchange):
             if self.is_depth_subscribed==False:
                 thread=threading.Thread(target=self._create_depth_link,args=(currency_pair,limit))
                 thread.start()
+                time.sleep(2)
             else:
                 # deal with self.responses:
-                responses=copy.copy(self.responses)
+                responses=copy.copy(self.responses_for_depth)
                 length=len(responses)
                 for item in responses:
                     result=copy.deepcopy(item)
@@ -164,40 +196,41 @@ class Kraken(EXCHANGE.Exchange):
                         continue
                     if result[-2] == 'book-' + str(limit) and result[-1] == make_currency_pair_string(currency_pair):
                         _result = copy.deepcopy(result[1])
+
                         if isinstance(result[2], dict) == True:
                             _result.update(result[2])
+                            # self._depth = universal.Depth('Kraken', currency_pair)
+
                         _temp_depth = universal.Depth('Kraken', currency_pair, _result)
                         self._depth = self._depth.update(_temp_depth)
-                self.responses=self.responses[length:]
+                self.responses_for_depth=self.responses_for_depth[length:]
                 return self._depth
 
-
-        DEPTH_RESOURCE = "/v3/order_book"
-        symbol = make_currency_pair_string(currency_pair)
-        # 下面的代码仅适用于v2版本的api
-        # timestamp=str(int(time.time()))
-        # _sign=sign(self.account,{
-        #     'symbol':symbol,
-        #     'timestamp':timestamp,
-        # })
-        # params={
-        #     'symbol': symbol,
-        #     'timestamp': timestamp,
-        #     'apiKey':self.account.api_key,
-        #     'sign':_sign
-        # }
-        params='market='+currency_pair.base+'_'+currency_pair.reference+'&limit='+str(limit)
-        result = requests.get(self.base_url+DEPTH_RESOURCE,params)
-        if result.status_code!=200:
-            return ERRORCODE.Error_Code_For_Status_Code[result.status_code]
-        if raw == True:
-            return result.text
-        else:
-            result = universal.Depth(self.MARKET, currency_pair, result.text)
-            return result
-
     def trades(self, currency_pair, limit=300, raw=False):
-        # https://openapi.digifinex.com/v3/trades?market=btc_usdt&limit=30
+        import threading
+        while True:
+            if self.is_trades_subscribed == False:
+                thread = threading.Thread(target=self._create_trades_link, args=(currency_pair, ))
+                thread.start()
+                time.sleep(2)
+            else:
+                # deal with self.responses:
+                responses = copy.copy(self.responses_for_trades)
+                # _responses=json.loads( responses[0])[1]
+                length=len(responses)
+                for item in responses:
+                    result=copy.deepcopy(item)
+                    result=list(json.loads(result))
+                    if len(result)<2:
+                        continue
+                    if result[-2]=='trade' and result[-1]== make_currency_pair_string(currency_pair):
+                        _result=copy.deepcopy(result[1])
+                        _temp_trades=universal.Trades(self.MARKET,currency_pair,_result,2)
+                        self._trades.trades.extend(_temp_trades.trades)
+                self.responses_for_trades = self.responses_for_trades[length:]
+                self._trades.trades.sort(key=lambda x:x.timestamp, reverse=True)
+                return self._trades
+
         TRADES_RESOURCE = "/v3/trades"
         params = 'market=' + currency_pair.base + '_' + currency_pair.reference + '&limit=' + str(limit)
         result = requests.get(self.base_url + TRADES_RESOURCE, params)

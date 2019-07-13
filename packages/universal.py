@@ -417,6 +417,7 @@ class Depth(object):
                 if ask1.price==price:
                     ask1.amount=amount
                     flag=True
+                    continue
             if flag==False:
                 this.asks.append(ask)
         this.asks=list(filter(lambda x:x.amount!=0, this.asks))
@@ -435,6 +436,21 @@ class Depth(object):
         this.bids = list(filter(lambda x: x.amount != 0, this.bids))
         this.bids.sort(key=lambda x: x.price, reverse=True)
         return this
+
+    def is_consumed_by(self,trades):
+        for trade in trades.trades:
+            price=trade.price
+            amount=trade.amount
+            trade_type=trade.trade_type
+            if trade_type==1:
+                for ask in self.asks:
+                    if abs(ask.price-price)<0.000001:
+                        ask.amount-=amount
+            else:
+                for bid in self.bids:
+                    if abs(bid.price-price)<0.000001:
+                        bid.amount-=amount
+        return self
         # def get_supporting_points(self, weighted_by=None, distance=1, referencial_currency=''):
     #     CONSTANT=1
     #     if referencial_currency=='usdt':
@@ -607,9 +623,9 @@ class TradeInfo:
         -999 for unknown
         '''
         self.timestamp = timestamp
-        self.amount = amount
-        self.price = price
-        self.trade_type=trade_type
+        self.amount = float(amount)
+        self.price =float(price)
+        self.trade_type=int(trade_type)
         self.tid=tid
         self.status=status
 
@@ -711,6 +727,20 @@ class Trades:
                     self.trades.append(trade)
                 self.message="操作成功"
                 # self.trades.reverse()
+            if market=='kraken':
+                for item in result:
+                    price=item[0]
+                    amount=item[1]
+                    date=item[2]
+                    tid=None
+                    if item[3]=='b':
+                        trade_type=1
+                    else:
+                        trade_type=0
+                    status=2
+                    trade=TradeInfo(date,price,amount,trade_type,tid,status)
+                    self.trades.append(trade)
+                self.message="操作成功"
         except Exception as e:
             self.message=e
 
