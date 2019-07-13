@@ -204,8 +204,8 @@ class Kraken(EXCHANGE.Exchange):
                         _temp_depth = universal.Depth('Kraken', currency_pair, _result)
                         self._depth = self._depth.update(_temp_depth)
                 self.responses_for_depth=self.responses_for_depth[length:]
-                self._depth.asks=filter(lambda x:abs(x.asks.amount)>0.000001, self._depth.asks)
-                self._depth.bids = filter(lambda x: abs(x.bids.amount) > 0.000001, self._depth.bids)
+                self._depth.asks=filter(lambda x:abs(x.amount)>0.000001, self._depth.asks)
+                self._depth.bids = filter(lambda x: abs(x.amount) > 0.000001, self._depth.bids)
                 return self._depth
 
     def trades(self, currency_pair, limit=300, raw=False):
