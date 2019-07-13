@@ -28,7 +28,6 @@ while True:
         depth=depth.is_consumed_by(trades)
         # trades=trades.consume(depth)
 
-
         ask0=depth.asks[0].price
         ask1=float(depth2['result']['XXBTZUSD']['asks'][0][0])
         bid0=depth.bids[0].price
