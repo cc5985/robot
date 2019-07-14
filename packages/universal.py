@@ -194,6 +194,66 @@ class Ask(Order):
 
 
 class Depth(object):
+
+    @classmethod
+    def fromResponses(cls, market, currency_pair, responses, flags):
+        ass=[]
+        bss=[]
+        for item in responses:
+            result = copy.deepcopy(item)
+            result = list(json.loads(result))
+            if len(result) < 2:
+                continue
+            if result[-2]==flags['depth'] and result[-1] == flags['currency_pair']:
+                _result = result[1]
+                if isinstance(result[2], dict) == True:
+                    _result.update(result[2])
+            _result=dict(_result)
+            if _result.__contains__('as'):
+                ass=_result['as']
+            if _result.__contains__('bs'):
+                bss=_result['bs']
+            if _result.__contains__('a'):
+                for a in _result['a']:
+                    price=a[0]
+                    amount=a[1]
+                    is_a_existed_in_a1=False
+                    for a1 in ass:
+                        if a1[0]==price:
+                            a1[1]=amount
+                            is_a_existed_in_a1=True
+                            continue
+                    if is_a_existed_in_a1==False:
+                        ass.append(a)
+
+            if _result.__contains__('b'):
+                for b in _result['b']:
+                    price=b[0]
+                    amount=b[1]
+                    is_b_existed_in_b1=False
+                    for b1 in bss:
+                        if b1[0]==price:
+                            b1[1]=amount
+                            is_b_existed_in_b1=True
+                            continue
+                    if is_b_existed_in_b1==False:
+                        bss.append(b)
+            break_point=None
+        ass = list(filter(lambda x: float(x[1]) != 0, ass))
+        bss = list(filter(lambda x: float(x[1]) != 0, bss))
+        ass=sorted(ass,key= lambda x:x[0], reverse=False)
+        bss=sorted(bss,key= lambda x:x[0], reverse=True)
+        asks=[]
+        bids=[]
+        for a in ass:
+            ask=Ask(a[0],a[1])
+            asks.append(ask)
+        for b in bss:
+            bid=Bid(b[0],b[1])
+            bids.append(bid)
+        return Depth(market,currency_pair,None,bids,asks)
+        break_point = None
+
     @classmethod
     def filter(cls, depths):
         '''
@@ -638,7 +698,7 @@ class Trades:
     this class represents a series of trades, whose attribute trades is an array of TradeInfo instances
     this class has 3 data members: :market, :currency, :trades, message
     '''
-    
+
     @classmethod
     def statistics(cls, trades):
 

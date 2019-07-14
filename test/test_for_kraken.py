@@ -35,7 +35,7 @@ while True:
         bid0=depth.bids[0].price
         bid1=float(depth2['result']['XXBTZUSD']['bids'][0][0])
         print('\n\n----------------------------------------------------------------------------')
-        print('Diff of Asks=%s%%\t\tDiff of Bids=%s%%' % ((ask0-ask1)*100/ask1,(bid0-bid1)/bid1))
+        print('Diff of Asks=%s%%\t\tDiff of Bids=%s%%' % ((ask0-ask1)*100/ask1,(bid0-bid1)*100/bid1))
         print('ws=%s\t\trestful=%s'%(str(t2-t1),str(t3-t2)))
         print('----------------------------------------------------------------------------')
         time.sleep(5)

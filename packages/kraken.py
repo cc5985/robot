@@ -187,22 +187,25 @@ class Kraken(EXCHANGE.Exchange):
                 time.sleep(2)
             else:
                 # deal with self.responses:
-                responses=copy.deepcopy(self.responses_for_depth)
-                length=len(responses)
-                for item in responses:
-                    result=copy.deepcopy(item)
-                    result = list(json.loads(result))
-                    if len(result) < 2:
-                        continue
-                    if result[-2] == 'book-' + str(limit) and result[-1] == make_currency_pair_string(currency_pair):
-                        _result = result[1]
 
-                        if isinstance(result[2], dict) == True:
-                            _result.update(result[2])
-                            # self._depth = universal.Depth('Kraken', currency_pair)
+                length=len(self.responses_for_depth)
+                responses = copy.deepcopy(self.responses_for_depth[:length])
 
-                        _temp_depth = universal.Depth('Kraken', currency_pair, _result)
-                        self._depth = self._depth.update(_temp_depth)
+                # for item in responses:
+                #     result=copy.deepcopy(item)
+                #     result = list(json.loads(result))
+                #     if len(result) < 2:
+                #         continue
+                #     if result[-2] == 'book-' + str(limit) and result[-1] == make_currency_pair_string(currency_pair):
+                #         _result = result[1]
+                #
+                #         if isinstance(result[2], dict) == True:
+                #             _result.update(result[2])
+                #             # self._depth = universal.Depth('Kraken', currency_pair)
+                _temp_depth=universal.Depth.fromResponses(self.MARKET,currency_pair,responses, flags={'depth':'book-'+str(limit),'currency_pair':make_currency_pair_string(currency_pair)})
+                a=1
+                # _temp_depth = universal.Depth('Kraken', currency_pair, _result)
+                self._depth = self._depth.update(_temp_depth)
                 self.responses_for_depth=self.responses_for_depth[length:]
                 self._depth.asks= list(filter(lambda x:abs(x.amount)>0.000001, self._depth.asks))
                 self._depth.bids = list(filter(lambda x: abs(x.amount) > 0.000001, self._depth.bids))
