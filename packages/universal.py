@@ -192,8 +192,22 @@ class Bid(Order):
 class Ask(Order):
     pass
 
+def api_update_book(api_book, side, data, depth_length=10):
+    for x in data:
+        price_level = x[0]
+        if float(x[1]) != 0.0:
+            api_book[side].update({price_level:float(x[1])})
+        else:
+            if price_level in api_book[side]:
+                api_book[side].pop(price_level)
+    if side == "bid":
+        api_book["bid"] = dict(sorted(api_book["bid"].items(), reverse=True)[:int(depth_length)])
+    elif side == "ask":
+        api_book["ask"] = dict(sorted(api_book["ask"].items())[:int(depth_length)])
+    return api_book
 
 class Depth(object):
+
 
     @classmethod
     def fromResponses(cls, market, currency_pair, responses, flags):
@@ -368,24 +382,16 @@ class Depth(object):
                 elif dict(result).__contains__("error_code"):
                     self.message= error_code.Error_code_for_OKEx[result["error_code"]]
             elif market=="kraken":
-
-                bss=[]
-                ass=[]
-                if result.__contains__('as'):
-                    ass=result['as']
-                if result.__contains__('a'):
-                    ass=result['a']
-                if result.__contains__('bs'):
-                    bss=result['bs']
-                if result.__contains__('b'):
-                    bss=result['b']
-                for b in bss:
-                    bid=Bid(b[0],b[1])
-                    self.bids.append(bid)
-                for a in ass:
-                    ask=Ask(a[0],a[1])
+                self.asks=[]
+                self.bids=[]
+                for a in result['ask'].keys():
+                    ask=Ask(a,result['ask'][a])
                     self.asks.append(ask)
-
+                for b in result['bid'].keys():
+                    bid=Bid(b,result['bid'][b])
+                    self.bids.append(bid)
+                self.bids.sort(key=lambda x: x.price, reverse=True)
+                self.asks.sort(key=lambda x: x.price, reverse=False)
             elif market=="aex":
                 result = json.loads(str(result))
                 if result.__contains__("asks"):

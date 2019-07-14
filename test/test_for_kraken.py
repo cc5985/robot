@@ -18,17 +18,12 @@ currency_pair=CURRENCYPAIR.CurrencyPair('btc','usdt')
 while True:
     try:
         t1=time.time()
-        trades = kraken.trades(currency_pair)
+        # trades = kraken.trades(currency_pair)
         depth=kraken.depth(currency_pair)
 
         t2=time.time()
         depth2=json.loads(requests.get('https://api.kraken.com/0/public/Depth?pair=xbtusd&count=10').text)
         t3=time.time()
-
-        length=len(trades.trades)
-        # depth=depth.is_consumed_by(trades)
-        # trades.trades=trades.trades[length:]
-        # trades=trades.consume(depth)
 
         ask0=depth.asks[0].price
         ask1=float(depth2['result']['XXBTZUSD']['asks'][0][0])

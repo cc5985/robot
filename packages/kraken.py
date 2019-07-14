@@ -76,6 +76,7 @@ class Kraken(EXCHANGE.Exchange):
 
     def _create_depth_link(self, currency_pair, limit=10):
         self._depth = universal.Depth('Kraken', currency_pair)
+        self.api_update_book={"bid":{}, "ask":{}}
         pair=make_currency_pair_string(currency_pair)
         self.ws.send(json.dumps({
             "event": "subscribe",
@@ -122,8 +123,23 @@ class Kraken(EXCHANGE.Exchange):
                 _result=json.loads(result)
                 if isinstance(_result,list) and len(_result)>3 and  str(_result[-2]).find('book-')!=-1:
                     self.responses_for_depth.append(result)
+                    api_data = _result
+                    if type(api_data) == list:
+                        if "as" in api_data[1]:
+                            self.api_update_book = universal.api_update_book(self.api_update_book, "ask",
+                                                                             api_data[1]["as"])
+                            self.api_update_book = universal.api_update_book(self.api_update_book, "bid",
+                                                                             api_data[1]["bs"])
+                        # signal.alarm(1)
+                        elif "a" in api_data[1] or "b" in api_data[1]:
+                            for x in api_data[1:len(api_data[1:]) - 1]:
+                                if "a" in x:
+                                    self.api_update_book = universal.api_update_book(self.api_update_book,"ask", x["a"])
+                                elif "b" in x:
+                                    self.api_update_book = universal.api_update_book(self.api_update_book,"bid", x["b"])
                     continue
                 if isinstance(_result,list) and len(_result)>3 and  _result[-2]=='trade':
+
                     self.responses_for_trades.append(result)
                     continue
             except Exception as error:
@@ -187,9 +203,9 @@ class Kraken(EXCHANGE.Exchange):
                 time.sleep(2)
             else:
                 # deal with self.responses:
-
-                length=len(self.responses_for_depth)
-                responses = copy.deepcopy(self.responses_for_depth[:length])
+                #
+                # length=len(self.responses_for_depth)
+                # responses = copy.deepcopy(self.responses_for_depth[:length])
 
                 # for item in responses:
                 #     result=copy.deepcopy(item)
@@ -202,13 +218,14 @@ class Kraken(EXCHANGE.Exchange):
                 #         if isinstance(result[2], dict) == True:
                 #             _result.update(result[2])
                 #             # self._depth = universal.Depth('Kraken', currency_pair)
-                _temp_depth=universal.Depth.fromResponses(self.MARKET,currency_pair,responses, flags={'depth':'book-'+str(limit),'currency_pair':make_currency_pair_string(currency_pair)})
-                a=1
-                # _temp_depth = universal.Depth('Kraken', currency_pair, _result)
-                self._depth = self._depth.update(_temp_depth)
-                self.responses_for_depth=self.responses_for_depth[length:]
-                self._depth.asks= list(filter(lambda x:abs(x.amount)>0.000001, self._depth.asks))
-                self._depth.bids = list(filter(lambda x: abs(x.amount) > 0.000001, self._depth.bids))
+                # _temp_depth=universal.Depth.fromResponses(self.MARKET,currency_pair,responses, flags={'depth':'book-'+str(limit),'currency_pair':make_currency_pair_string(currency_pair)})
+                # a=1
+                # # _temp_depth = universal.Depth('Kraken', currency_pair, _result)
+                # self._depth = self._depth.update(_temp_depth)
+                # self.responses_for_depth=self.responses_for_depth[length:]
+                # self._depth.asks= list(filter(lambda x:abs(x.amount)>0.000001, self._depth.asks))
+                # self._depth.bids = list(filter(lambda x: abs(x.amount) > 0.000001, self._depth.bids))
+                self._depth=universal.Depth(self.MARKET,currency_pair,self.api_update_book)
                 return self._depth
 
     def trades(self, currency_pair, limit=300, raw=False):
