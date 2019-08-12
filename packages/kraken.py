@@ -5,12 +5,13 @@ import json
 import time
 import requests
 import copy
+
 from websocket import create_connection
 
 from packages import error_code as ERRORCODE
 from packages import exchange as EXCHANGE
 from packages import universal
-
+from packages.kraken_rest import api as KRAKEN_RAW_API
 
 # 根据 CurrencyPair 实例构造一个request的字符串
 def make_currency_pair_string(currency_pair):
@@ -19,9 +20,13 @@ def make_currency_pair_string(currency_pair):
     result=Kraken.COINNAMEMAPPING.get(currency_pair.base,currency_pair.base) +'/' + Kraken.COINNAMEMAPPING.get(currency_pair.reference,currency_pair.reference)
     return result
 
+def make_currency_pair_string_for_restful(currency_pair):
+    # XXBTZUSD
+    result = 'pair=' + Kraken.COINNAMEMAPPING.get(currency_pair.base, currency_pair.base) + Kraken.COINNAMEMAPPING.get(
+        currency_pair.reference, currency_pair.reference)
+    return result
 def append_api_key(params, api_key):
     return params+'&apiKey=' + api_key
-
 def sign(account, params):
     import hashlib
     import copy
@@ -48,13 +53,13 @@ class Kraken(EXCHANGE.Exchange):
         'usdt':'USD'
     }
 
-
     def __init__(self,account, base_url=None):
         self.account = account
         if not base_url is None:
             self.base_url = base_url
         else:
             self.base_url=EXCHANGE.Exchange.MARKET_BASEURL_MAPPING['Kraken']
+            self.base_url_for_rest='https://api.kraken.com'
         self.is_depth_subscribed=False
         self.initialize_ws()
 
@@ -202,128 +207,95 @@ class Kraken(EXCHANGE.Exchange):
                 thread.start()
                 time.sleep(2)
             else:
-                # deal with self.responses:
-                #
-                # length=len(self.responses_for_depth)
-                # responses = copy.deepcopy(self.responses_for_depth[:length])
-
-                # for item in responses:
-                #     result=copy.deepcopy(item)
-                #     result = list(json.loads(result))
-                #     if len(result) < 2:
-                #         continue
-                #     if result[-2] == 'book-' + str(limit) and result[-1] == make_currency_pair_string(currency_pair):
-                #         _result = result[1]
-                #
-                #         if isinstance(result[2], dict) == True:
-                #             _result.update(result[2])
-                #             # self._depth = universal.Depth('Kraken', currency_pair)
-                # _temp_depth=universal.Depth.fromResponses(self.MARKET,currency_pair,responses, flags={'depth':'book-'+str(limit),'currency_pair':make_currency_pair_string(currency_pair)})
-                # a=1
-                # # _temp_depth = universal.Depth('Kraken', currency_pair, _result)
-                # self._depth = self._depth.update(_temp_depth)
-                # self.responses_for_depth=self.responses_for_depth[length:]
-                # self._depth.asks= list(filter(lambda x:abs(x.amount)>0.000001, self._depth.asks))
-                # self._depth.bids = list(filter(lambda x: abs(x.amount) > 0.000001, self._depth.bids))
                 self._depth=universal.Depth(self.MARKET,currency_pair,self.api_update_book)
                 return self._depth
 
-    def trades(self, currency_pair, limit=300, raw=False):
-        import threading
-        while True:
-            if self.is_trades_subscribed == False:
-                thread = threading.Thread(target=self._create_trades_link, args=(currency_pair, ))
-                thread.start()
-                time.sleep(2)
-            else:
-                # deal with self.responses:
-                responses = copy.copy(self.responses_for_trades)
-                # _responses=json.loads( responses[0])[1]
-                length=len(responses)
-                for item in responses:
-                    result=copy.deepcopy(item)
-                    result=list(json.loads(result))
-                    if len(result)<2:
-                        continue
-                    if result[-2]=='trade' and result[-1]== make_currency_pair_string(currency_pair):
-                        _result=copy.deepcopy(result[1])
-                        _temp_trades=universal.Trades(self.MARKET,currency_pair,_result,2)
-                        self._trades.trades.extend(_temp_trades.trades)
-                self.responses_for_trades = self.responses_for_trades[length:]
-                self._trades.trades.sort(key=lambda x:x.timestamp, reverse=True)
-                return self._trades
-
-        TRADES_RESOURCE = "/v3/trades"
-        params = 'market=' + currency_pair.base + '_' + currency_pair.reference + '&limit=' + str(limit)
-        result = requests.get(self.base_url + TRADES_RESOURCE, params)
+    def trades(self, currency_pair, limit=1000, since=None, raw=False, order_type=None):
+        # https://api.kraken.com/0/public/Trades?pair=XXBTZUSD
+        TRADES_RESOURCE = "/0/public/Trades"
+        params = make_currency_pair_string_for_restful(currency_pair)
+        if since:
+            params+='&since='+str(since)
+        else:
+            pass
+        result=None
+        while result is None:
+            try:
+                result = requests.get(self.base_url_for_rest + TRADES_RESOURCE, params)
+            except:
+                result=None
         if result.status_code!=200:
             return ERRORCODE.Error_Code_For_Status_Code[result.status_code]
         if raw == True:
             return result.text
         else:
-            result = universal.Trades(self.MARKET, currency_pair, result.text,2)
+            result = universal.Trades(self.MARKET, currency_pair, result.text,2,None,order_type)
             return result
 
     def balances(self):
-        # https://openapi.digifinex.vip/v2/myposition?apiKey=59328e10e296a&timestamp=1410431266&sign=0a8d39b515fd8f3f8b848a4c459884c2
-        USERINFO_RESOURCE = "/v2/myposition"
-        timestamp=int(time.time())
-        params={
-            'timestamp':timestamp
-        }
-        params['sign']=sign(self.account,params)
-        result = requests.get(self.base_url + USERINFO_RESOURCE, params)
-        result=universal.BalanceInfo(self.MARKET,result.text)
-        return result
+        k = KRAKEN_RAW_API.API(key=self.account.api_key,secret=self.account.secret_key)
+        result=k.query_private('Balance')
+        return universal.BalanceInfo(self.MARKET,result)
 
     def submit_order(self, type, currency_pair, price, amount):
-        # https: // openapi.digifinex.vip / v2 / trade
-        # POST参数:
-        # symbol = usdt_btc
-        # price = 6000.12
-        # amount = 0.1
-        # type = buy
-        # apiKey = 59328e10e296a
-        # timestamp = 1410431266
-        # sign = 0a8d39b515fd8f3f8b848a4c459884c2
-        SUBMITORDER_RESOURCE='/v2/trade'
-        timestamp = int(time.time())
-        type="buy" if (type==1 or type=='1' or str(type).lower()=="buy") else "sell"
-        params = {
-            'timestamp': timestamp,
-            'type':type,
-            'price':price,
-            'amount':amount,
-            'symbol':make_currency_pair_string(currency_pair)
-        }
-        params['sign'] = sign(self.account, params)
-        result = requests.post(self.base_url + SUBMITORDER_RESOURCE, data=params)
-        result = universal.OrderInfo(self.MARKET, currency_pair, result.text, {'price':price,'amount':amount,'type':type})
+        k = KRAKEN_RAW_API.API(key=self.account.api_key, secret=self.account.secret_key)
+        pair_name='X'+Kraken.COINNAMEMAPPING.get(currency_pair.base, currency_pair.base) + 'Z' + Kraken.COINNAMEMAPPING.get(
+        currency_pair.reference, currency_pair.reference)
+        action='buy' if type>=1 or type=='1' or type=='buy' else 'sell'
+        result = k.query_private('AddOrder',
+                                        {'pair': pair_name,
+                                         'type': action,
+                                         'ordertype': 'limit',
+                                         'price': str(price),
+                                         'volume': str(amount)
+                                         })
+        result = universal.OrderInfo(self.MARKET, currency_pair, result, {'price':price,'amount':amount,'type':type})
         return result
 
-    def cancel_order(self,currency_pair,order_ids):
-        # POST https: // openapi.digifinex.vip / v2 / cancel_order
-        # POST参数:
-        # order_id = 1000001, 1000002, 1000003
-        # apiKey = 59328e10e296a
-        # timestamp = 1410431266
-        # sign = 0a8d39b515fd8f3f8b848a4c459884c2
-        CANCEL_ORDER_RESOURCE = '/v2/cancel_order'
-        timestamp = int(time.time())
-        if isinstance(order_ids,str):
-            _order_ids=order_ids
-        if isinstance(order_ids,list):
-            _order_ids = list(map(lambda x: str(x), order_ids))
-            _order_ids = ','.join(_order_ids)
+    def cancel_order(self,currency_pair,order_id):
+        k = KRAKEN_RAW_API.API(key=self.account.api_key, secret=self.account.secret_key)
 
-        params = {
-            'timestamp': timestamp,
-            'order_id': _order_ids,
-        }
-        params['sign'] = sign(self.account, params)
-        result = requests.post(self.base_url + CANCEL_ORDER_RESOURCE, data=params)
-        result = universal.CancelOrderResult(self.MARKET, currency_pair, result.text,order_ids)
+        result = k.query_private('CancelOrder',{'txid': order_id})
+        result = universal.CancelOrderResult(self.MARKET, currency_pair, result, order_id)
         return result
+
+
+    def trades_volume(self):
+        # https: // api.kraken.com / 0 / private / TradeVolume
+        k = KRAKEN_RAW_API.API(key=self.account.api_key, secret=self.account.secret_key)
+        result = k.query_private('TradeVolume')
+        return float(result['result']['volume'])
+
+    def get_currency_pairs_info(self):
+        # https://api.kraken.com/0/public/AssetPairs
+        k = KRAKEN_RAW_API.API(key=self.account.api_key, secret=self.account.secret_key)
+        result = k.query_public('AssetPairs')
+        result = universal.CurrencyPairInfos(self.MARKET, result)
+        return result
+
+    @classmethod
+    def get_fees(self, volume):
+        volumes={
+            'taker':[0,50000,100000,250000,500000,1000000,2500000,5000000,10000000,10**20],
+            'maker':[0,50000,100000,250000,500000,1000000,2500000,5000000,10000000,10**20]
+        }
+        fee_multifliers={
+            'taker': [0.26,0.24,0.22,0.2,0.18,0.16,0.14,0.12,0.1],
+            'maker': [0.16,0.14,0.12,0.1,0.08,0.06,0.04,0.02,0]
+        }
+        fees={
+            'maker':0.16,
+            'taker':0.26
+        }
+        for cnt in range(0,len(volumes['taker'])):
+            if volume<volumes['taker'][cnt]:
+                fees['taker']=fee_multifliers['taker'][cnt-1]
+                break
+        for cnt in range(0,len(volumes['maker'])):
+            if volume<volumes['maker'][cnt]:
+                fees['maker']=fee_multifliers['maker'][cnt-1]
+                break
+        return fees
 
     def order_list(self,currency_pair=None, current_page=1, page_length=200):
         # symbol, page, type are optional

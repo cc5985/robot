@@ -57,6 +57,15 @@ class OrderInfo:
                     self.message = "操作成功"
                 else:
                     self.message = error_code.Error_code_for_DigiFinex[result["code"]]
+            if market=='kraken':
+                if result.__contains__('error') and len(result['error'])>0:
+                    self.message=result['error'][0]
+                else:
+                    self.order_id=result['result']['txid'][0]
+                    self.price = params["price"]
+                    self.amount = params["amount"]
+                    self.type = params["type"]
+                    self.message = "操作成功"
         except Exception as e:
             self.order_ids=[]
             self.message=e
@@ -179,6 +188,12 @@ class CancelOrderResult:
             else:
                 self.failed_orders_ids=order_id
                 self.message=error_code.Error_code_for_DigiFinex[result['code']]
+        if market=='kraken':
+            if len(result['error'])>0:
+                self.message=result['error'][0]
+            else:
+                self.message='操作成功'
+                self.id = order_id
 
 class Order:
     def __init__(self,price , amount):
@@ -192,7 +207,7 @@ class Bid(Order):
 class Ask(Order):
     pass
 
-def api_update_book(api_book, side, data, depth_length=10):
+def api_update_book(api_book, side, data, depth_length=100):
     for x in data:
         price_level = x[0]
         if float(x[1]) != 0.0:
@@ -207,7 +222,6 @@ def api_update_book(api_book, side, data, depth_length=10):
     return api_book
 
 class Depth(object):
-
 
     @classmethod
     def fromResponses(cls, market, currency_pair, responses, flags):
@@ -319,24 +333,99 @@ class Depth(object):
 
     @classmethod
     def get_supporting_points(cls, depth, weighted_by='vol', distance=1):
-        acc_bid_vol = 0
-        acc_ask_vol = 0
-        cnt = 0
-        bid_price = depth.bids[-1].price  # in case can not find a proper point, set this price to a very distant price in the 1st place
-        ask_price = depth.asks[-1].price
-        for bid in depth.bids:
-            acc_bid_vol += bid.amount
-            if acc_bid_vol >= distance:
-                bid_price = bid.price
-                break
-        for ask in depth.asks:
-            acc_ask_vol += ask.amount
-            if acc_ask_vol >= distance:
-                ask_price = ask.price
-                break
-        supporting_points = [bid_price, ask_price]
-        return supporting_points
-        pass
+        if weighted_by=='vol':
+            acc_bid_vol = 0
+            acc_ask_vol = 0
+            cnt = 0
+            bid_price = depth.bids[-1].price  # in case can not find a proper point, set this price to a very distant price in the 1st place
+            ask_price = depth.asks[-1].price
+            for bid in depth.bids:
+                acc_bid_vol += bid.amount
+                if acc_bid_vol >= distance:
+                    bid_price = bid.price
+                    break
+            for ask in depth.asks:
+                acc_ask_vol += ask.amount
+                if acc_ask_vol >= distance:
+                    ask_price = ask.price
+                    break
+            supporting_points = [bid_price, ask_price]
+            return supporting_points
+        if weighted_by=='price':
+            mid_price=(depth.asks[0].price+depth.bids[0].price)/2
+            price_gap=99999
+            ask_price = None
+            bid_price = None
+            bid_vol_from_0 = 0
+            ask_vol_from_0 = 0
+            ask_accumulative_vol=0
+            bid_accumulative_vol=0
+            diff_ask_vol_and_bid_vol=99999
+            diff_bid_vol_and_ask_vol = 99999
+            supporting_points_from_ask=[]
+            supporting_points_from_bid=[]
+
+            for ask in depth.asks:
+                ask_price=ask.price
+                ask_accumulative_vol+=ask.amount
+                target_bid_price=ask_price-distance*2
+                delta_bid_price=99999
+                bid_accumulative_vol=0
+                _diff_ask_vol_and_bid_vol=99999
+                for bid in depth.bids:
+                    _delta_bid_price=abs(bid.price-target_bid_price)
+                    if _delta_bid_price>delta_bid_price:
+                        _diff_ask_vol_and_bid_vol=abs(ask_accumulative_vol-bid_accumulative_vol)
+                        break
+                    else:
+                        bid_price = bid.price
+                        bid_accumulative_vol+=bid.amount
+                        delta_bid_price=_delta_bid_price
+                if _diff_ask_vol_and_bid_vol>diff_ask_vol_and_bid_vol:
+                    supporting_points_from_ask = [bid_price, ask_price]
+                else:
+                    diff_ask_vol_and_bid_vol=_diff_ask_vol_and_bid_vol
+            
+            for bid in depth.bids:
+                bid_price=bid.price
+                bid_accumulative_vol+=bid.amount
+                target_ask_price=bid_price+distance*2
+                delta_ask_price=99999
+                ask_accumulative_vol=0
+                _diff_bid_vol_and_ask_vol=99999
+                for ask in depth.asks:
+                    _delta_ask_price=abs(ask.price-target_ask_price)
+                    if _delta_ask_price>delta_ask_price:
+                        _diff_bid_vol_and_ask_vol=abs(bid_accumulative_vol-ask_accumulative_vol)
+                        break
+                    else:
+                        ask_price = ask.price
+                        ask_accumulative_vol+=ask.amount
+                        delta_ask_price=_delta_ask_price
+                if _diff_bid_vol_and_ask_vol>diff_bid_vol_and_ask_vol:
+                    supporting_points_from_bid = [bid_price, ask_price]
+                else:
+                    diff_bid_vol_and_ask_vol=_diff_bid_vol_and_ask_vol
+
+            if diff_bid_vol_and_ask_vol>diff_ask_vol_and_bid_vol:
+                return supporting_points_from_ask
+            else:
+                return supporting_points_from_bid
+            # if price_gap>distance*2:
+            #     for ask in depth.asks:
+            #         if ask.price<=distance+mid_price:
+            #             ask_vol_from_0+=ask.amount
+            #             ask_price=ask.price
+            #     for bid in depth.bids:
+            #         if bid.price>=mid_price-distance:
+            #             bid_vol_from_0+=bid.amount
+            #             bid_price=bid.price
+            #     diff_vol_from_0=ask_vol_from_0-bid_vol_from_0
+            #     bid_vol_from_0=bid_vol_from_0-diff_vol_from_0/2
+            #     ask_vol_from_0=ask_vol_from_0+diff_vol_from_0/2
+            #
+            #     price_gap=ask_price-bid_price
+            #
 
     def __init__(self, market, currency_pair, result=None, bids=[],asks=[]):
         '''
@@ -599,6 +688,69 @@ class Klines:
             error_key=result["error_code"]
             self.message= error_code.Error_code_for_OKEx[error_key]
 
+    @classmethod
+    def from_trades(cls, currency_pair, trades, aggregated_by='price', distance=20, accumulative_vol=0.01):
+
+        klines=Klines('None',currency_pair,[])
+        if aggregated_by=='price':
+            currenct_price=trades.trades[0].price
+            current_timestamp=trades.trades[0].timestamp
+            bid_vol_at_peak=0
+            ask_vol_at_bottom=0
+            peak=-9999999
+            bottom=9999999
+            open=None
+            close=None
+            high=None
+            low=None
+            vol=0
+            for cnt in range(0,len(trades.trades)):
+                trade=trades.trades[cnt]
+                trade_type=trade.trade_type
+                amount=trade.amount
+                price=trade.price
+                vol+=amount
+                if open is None:
+                    open=price
+                if close is None:
+                    close=price
+                if high is None:
+                    high=price
+                if low is None:
+                    low=price
+                if trade_type==1:
+                    if price>high:
+                        high=price
+                        bid_vol_at_peak=amount
+                    elif price==high:
+                        bid_vol_at_peak+=amount
+                    else:
+                        pass
+                else:
+                    if price<low:
+                        low=price
+                        ask_vol_at_bottom=amount
+                    elif price==low:
+                        ask_vol_at_bottom+=amount
+                    else:
+                        pass
+                timestamp=trade.timestamp
+                if distance<1:
+                    absolute_distance = distance * price
+                else:
+                    absolute_distance=distance
+                if high-low>=absolute_distance: # and bid_vol_at_peak>=accumulative_vol and ask_vol_at_bottom>=accumulative_vol:
+                    close=price
+                    kline=Kline(open,close,high,low,vol,timestamp)
+                    klines.klines.append(kline)
+                    vol=0
+                    bid_vol_at_peak = 0
+                    ask_vol_at_bottom = 0
+                    open = None
+                    close = None
+                    high = None
+                    low = None
+            return klines
 
 class Ticker(object):
     # :market, :currency, :timestamp, :high,
@@ -699,14 +851,46 @@ class TradeInfo:
         self.tid=tid
         self.status=status
 
+    def equals(self, other):
+        if self.amount==other.amount and self.price==other.price and self.timestamp==other.timestamp and self.trade_type==other.trade_type and self.tid==other.tid and self.status==other.status:
+            return True
+        else:
+            return False
+
 class Trades:
     '''
     this class represents a series of trades, whose attribute trades is an array of TradeInfo instances
     this class has 3 data members: :market, :currency, :trades, message
     '''
+    @classmethod
+    def sectionize(cls, trades, granularity=1):
+        import math
+        result = {'buy': {}, 'sell': {}}
+        min_price=9999999
+        max_price=0
+        for trade in trades.trades:
+            min_price=min(trade.price,min_price)
+            max_price=max(trade.price,max_price)
+        min_price=int(min_price/granularity)*granularity
+        max_price=math.ceil(max_price/granularity)*granularity
+        for cnt in range(min_price,max_price+1,granularity):
+            result['buy'][cnt]=0
+            result['sell'][cnt]=0
+
+        for trade in trades.trades:
+            trade_type=trade.trade_type
+            price=trade.price
+            amount=trade.amount
+            index = int(price / granularity) * granularity
+            if trade_type==1:
+                result['buy'][index]+=amount
+            else:
+                result['sell'][index] += amount
+        return result
+
 
     @classmethod
-    def statistics(cls, trades):
+    def statistics(cls, trades, sectionize_by=''):
 
         sum_price=0
         total_amount=0
@@ -719,6 +903,54 @@ class Trades:
         accumulated_buying_price=0
         accumulated_selling_price=0
         timespan=trades.trades[0].timestamp-trades.trades[-1].timestamp
+
+        # define the advanced statistical data
+        # assume that the number of samples in each group should be 600
+        seperations=[0]
+        _trades=copy.deepcopy(trades.trades)
+        _trades.sort(key=lambda x: x.amount, reverse=False)
+        # sectionize by num of transactions, the num is set to NUM_OF_SAMPLES
+        if sectionize_by=='volume':
+            seperations = [0]
+            for cnt in range(0, 300, 1):
+                index = cnt / 100
+                seperations.append(index)
+            seperations.append(10 ** 5)
+        elif sectionize_by=='both':
+            seperations = [0]
+            current_amount=0.1
+            num_of_samples=0
+            for cnt in range(1,int(len(_trades))):
+                num_of_samples+=1
+                if num_of_samples>=600 and _trades[cnt].amount>=current_amount:
+                    seperations.append(current_amount)
+                    current_amount+=0.1
+                    num_of_samples=0
+            seperations.append(10 ** 5)
+        else:
+            NUM_OF_SAMPLES=600
+            for cnt in range(0,int(len(_trades)/NUM_OF_SAMPLES)):
+                index=NUM_OF_SAMPLES-1+cnt*NUM_OF_SAMPLES
+                if index>=len(_trades):
+                    index=-1
+                seperations.append(_trades[index].amount)
+        # sectionize by volume, the volume increases by 0.01 every step
+
+        avg_buy_by_section_amount = {}
+        avg_sell_by_section_amount = {}
+        total_buy_amount_by_section_amount={}
+        total_sell_amount_by_section_amount={}
+        total_buy_by_amount_by_section_amount={}
+        total_sell_by_amount_by_section_amount={}
+        # end definition
+
+        for cnt in range(1,len(seperations)):
+            avg_buy_by_section_amount[str(seperations[cnt])]=None
+            avg_sell_by_section_amount[str(seperations[cnt])]=None
+            total_buy_amount_by_section_amount[str(seperations[cnt])]=0
+            total_sell_amount_by_section_amount[str(seperations[cnt])]=0
+            total_buy_by_amount_by_section_amount[str(seperations[cnt])]=0
+            total_sell_by_amount_by_section_amount[str(seperations[cnt])]=0
         for trade in trades.trades:
             num_of_transactions+=1
             sum_price+=trade.price
@@ -728,10 +960,22 @@ class Trades:
                 num_of_buying_transactions+=1
                 accumulated_buying_amount+=trade.amount
                 accumulated_buying_price+=trade.price*trade.amount
+                amount=trade.amount
+                for cnt in range(1,len(seperations)):
+                    if amount>seperations[cnt-1] and amount<=seperations[cnt]:
+                        total_buy_amount_by_section_amount[str(seperations[cnt])]+=amount
+                        total_buy_by_amount_by_section_amount[str(seperations[cnt])]+=amount*trade.price
+                        break
             else:
                 num_of_selling_transactions+=1
                 accumulated_selling_amount+=trade.amount
                 accumulated_selling_price+=trade.amount*trade.price
+                amount = trade.amount
+                for cnt in range(1, len(seperations)):
+                    if amount > seperations[cnt - 1] and amount <= seperations[cnt]:
+                        total_sell_amount_by_section_amount[str(seperations[cnt])] += amount
+                        total_sell_by_amount_by_section_amount[str(seperations[cnt])] += amount * trade.price
+                        break
 
 
         avg_price_by_amount= accumulated_price/total_amount
@@ -740,6 +984,13 @@ class Trades:
         buying_amount= accumulated_buying_amount
         selling_amount= accumulated_selling_amount
         avg_amount_by_transaction= total_amount/len(trades.trades)
+        avg_price_gap_adjusted_by_volume=avg_buy_by_amount-avg_sell_by_amount
+
+        for cnt in range(1, len(seperations)):
+            if total_buy_amount_by_section_amount[str(seperations[cnt])]!=0:
+                avg_buy_by_section_amount[str(seperations[cnt])] = total_buy_by_amount_by_section_amount[str(seperations[cnt])]/total_buy_amount_by_section_amount[str(seperations[cnt])]
+            if total_sell_amount_by_section_amount[str(seperations[cnt])]!=0:
+                avg_sell_by_section_amount[str(seperations[cnt])] = total_sell_by_amount_by_section_amount[str(seperations[cnt])]/total_sell_amount_by_section_amount[str(seperations[cnt])]
         result = {
             'avg_price_by_amount': avg_price_by_amount,
             'avg_buy_by_amount': avg_buy_by_amount,
@@ -748,10 +999,16 @@ class Trades:
             'buying_amount': buying_amount,
             'selling_amount': selling_amount,
             'avg_amount_by_transaction': avg_amount_by_transaction,
-            'avg_amount_per_second':total_amount/timespan
+            'avg_amount_per_second':total_amount/timespan,
+            'avg_price_gap_adjusted_by_volume':avg_price_gap_adjusted_by_volume,
+            'timespan':timespan,
+            'total_buy_amount_by_section_amount':total_buy_amount_by_section_amount,
+            'total_sell_amount_by_section_amount':total_sell_amount_by_section_amount,
+            'avg_buy_by_section_amount':avg_buy_by_section_amount,
+            'avg_sell_by_section_amount':avg_sell_by_section_amount
         }
         return result
-    def __init__(self,market, currency_pair, result, status, user_id=None):
+    def __init__(self,market, currency_pair, result, status, user_id=None, order_type=None):
         self.market=market
         self.currency_pair=currency_pair
         self.trades=[]
@@ -798,6 +1055,9 @@ class Trades:
                 self.message="操作成功"
                 # self.trades.reverse()
             if market=='kraken':
+                if result is None:
+                    return
+                result=json.loads(result)['result']['XXBTZUSD']
                 for item in result:
                     price=item[0]
                     amount=item[1]
@@ -808,8 +1068,16 @@ class Trades:
                     else:
                         trade_type=0
                     status=2
-                    trade=TradeInfo(date,price,amount,trade_type,tid,status)
-                    self.trades.append(trade)
+                    if order_type is None:
+                        trade = TradeInfo(date, price, amount, trade_type, tid, status)
+                        self.trades.append(trade)
+                    if order_type==item[4]:
+                        trade = TradeInfo(date, price, amount, trade_type, tid, status)
+                        self.trades.append(trade)
+                    else:
+                        pass
+
+                self.trades.reverse()
                 self.message="操作成功"
         except Exception as e:
             self.message=e
@@ -895,7 +1163,19 @@ class CurrencyPairInfos:
                 self.message = '操作成功'
             else:
                 self.message = error_code.Error_code_for_DigiFinex[result['code']]
-
+        if market=='kraken':
+            self.currency_pair_infos={}
+            if len(result['error'])>0:
+                self.message=result['error'][0]
+            else:
+                data=result['result']
+                for key in data.keys():
+                    currency_pair=CP.CurrencyPair(data[key]['base'],data[key]['quote'])
+                    amount_precision=data[key]['lot_decimals']
+                    price_precision=data[key]['pair_decimals']
+                    currency_pair_info=CurrencyPairInfo(currency_pair,amount_precision,price_precision)
+                    self.currency_pair_infos[currency_pair.toString()]=currency_pair_info
+                self.message='操作成功'
 class CurrencyPairInfo:
     '''
     message:
