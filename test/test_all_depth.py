@@ -50,7 +50,10 @@ depths=[]
 
 def add_to_depths(exchange,currency_pair):
     global depths
+    t0=time.time()
     depth=exchange.depth(currency_pair)
+    t0=time.time()-t0
+    print('Time used for fetching data on ', depth.market, ' takes ', t0)
     depths.append(depth)
 
 print(time.time())
@@ -62,7 +65,7 @@ for thread in threads:
     thread.join()
 for depth in depths:
     if len(depth.asks)>0:
-        print('%-10s'%depth.market,"\t:",round(depth.asks[0].price,2),"\t",round(depth.bids[0].price),2)
+        print('%-10s'%depth.market,"\t:",round(depth.asks[0].price,2),"\t",round(depth.bids[0].price,2))
     else:
         print('%-10s'%depth.market,depth.market,' does not support usdt pair')
 print(time.time())
