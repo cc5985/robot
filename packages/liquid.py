@@ -115,7 +115,7 @@ class Liquid(EXCHANGE.Exchange):
         # }
 
         params='symbol='+symbol+'&ldepth='+str(limit)+'&type='+type
-        result = requests.get(self.base_url+DEPTH_RESOURCE,proxies={'http':'http//127.0.0.1:1080','https':'https://127.0.0.1:1080'})
+        result = requests.get(self.base_url+DEPTH_RESOURCE)
         if result.status_code!=200:
             return ERRORCODE.Error_Code_For_Status_Code[result.status_code]
         if raw == True:

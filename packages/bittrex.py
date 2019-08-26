@@ -103,7 +103,7 @@ class Bittrex(EXCHANGE.Exchange):
         symbol = make_currency_pair_string(currency_pair)
 
         params='market='+symbol+'&type=both'
-        result = requests.get(self.base_url+DEPTH_RESOURCE,params,proxies={'http':'http//127.0.0.1:1080','https':'https://127.0.0.1:1080'})
+        result = requests.get(self.base_url+DEPTH_RESOURCE,params)
         if result.status_code!=200:
             return ERRORCODE.Error_Code_For_Status_Code[result.status_code]
         if raw == True:
