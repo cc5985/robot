@@ -457,7 +457,88 @@ class Depth(object):
         try:
             market=str(market).lower()
             # result=json.loads(str(result))
-            if market=="okex":
+            if market=="liquid":
+                result=json.loads(result)
+                if dict(result).__contains__('buy_price_levels'):
+                    bss=result['buy_price_levels']  # the bids object in the json
+                    ass=result['sell_price_levels']  # the asks object in the json
+                    for b in bss:
+                        bid=Bid(b[0],b[1])
+                        self.bids.append(bid)
+                    for a in ass:
+                        ask=Ask(a[0],a[1])
+                        self.asks.append(ask)
+                elif dict(result).__contains__("error_code"):
+                    self.message= error_code.Error_code_for_OKEx[result["error_code"]]
+            if market=="zb":
+                result=json.loads(result)
+                if dict(result).__contains__('asks'):
+                    bss=result['bids']  # the bids object in the json
+                    ass=result['asks']  # the asks object in the json
+                    for b in bss:
+                        bid=Bid(b[0],b[1])
+                        self.bids.append(bid)
+                    for a in ass:
+                        ask=Ask(a[0],a[1])
+                        self.asks.append(ask)
+                    self.asks.reverse()
+                elif dict(result).__contains__("error_code"):
+                    self.message= error_code.Error_code_for_OKEx[result["error_code"]]
+            if market=="bitso":
+                result=json.loads(result)
+                if dict(result)['success']==True:
+                    result=result['payload']
+                    bss=result['bids']  # the bids object in the json
+                    ass=result['asks']  # the asks object in the json
+                    for b in bss:
+                        bid=Bid(b['price'],b['amount'])
+                        self.bids.append(bid)
+                    for a in ass:
+                        ask=Ask(a['price'],a['amount'])
+                        self.asks.append(ask)
+                elif dict(result).__contains__("error_code"):
+                    self.message= error_code.Error_code_for_OKEx[result["error_code"]]
+            if market=="itbit":
+                result=json.loads(result)
+                if dict(result).__contains__('asks'):
+                    bss=result['bids']  # the bids object in the json
+                    ass=result['asks']  # the asks object in the json
+                    for b in bss:
+                        bid=Bid(b[0],b[1])
+                        self.bids.append(bid)
+                    for a in ass:
+                        ask=Ask(a[0],a[1])
+                        self.asks.append(ask)
+                elif dict(result).__contains__("error_code"):
+                    self.message= error_code.Error_code_for_OKEx[result["error_code"]]
+            if market=="poloniex":
+                result=json.loads(result)
+                if dict(result).__contains__('asks'):
+                    bss=result['bids']  # the bids object in the json
+                    ass=result['asks']  # the asks object in the json
+                    for b in bss:
+                        bid=Bid(b[0],b[1])
+                        self.bids.append(bid)
+                    for a in ass:
+                        ask=Ask(a[0],a[1])
+                        self.asks.append(ask)
+                elif dict(result).__contains__("error_code"):
+                    self.message= error_code.Error_code_for_OKEx[result["error_code"]]
+            if market=="bittrex":
+                result=json.loads(result)
+                if dict(result)['success']==True:
+                    bss=result['result']['buy']  # the bids object in the json
+                    ass=result['result']['sell']  # the asks object in the json
+                    for b in bss:
+                        bid=Bid(b['Rate'],b['Quantity'])
+                        self.bids.append(bid)
+                    for a in ass:
+                        ask=Ask(a['Rate'],a['Quantity'])
+                        self.asks.append(ask)
+                elif dict(result).__contains__("error_code"):
+                    self.message= error_code.Error_code_for_OKEx[result["error_code"]]
+            if market=="gateio":
+                result=json.loads(result)
                 if dict(result).__contains__("asks"):
                     bss=result['bids']  # the bids object in the json
                     ass=result['asks']  # the asks object in the json
@@ -470,6 +551,100 @@ class Depth(object):
                     self.asks.reverse()
                 elif dict(result).__contains__("error_code"):
                     self.message= error_code.Error_code_for_OKEx[result["error_code"]]
+            if market=="bitstamp":
+                result=json.loads(result)
+                if dict(result).__contains__("asks"):
+                    bss=result['bids']  # the bids object in the json
+                    ass=result['asks']  # the asks object in the json
+                    for b in bss:
+                        bid=Bid(b[0],b[1])
+                        self.bids.append(bid)
+                    for a in ass:
+                        ask=Ask(a[0],a[1])
+                        self.asks.append(ask)
+                elif dict(result).__contains__("error_code"):
+                    self.message= error_code.Error_code_for_OKEx[result["error_code"]]
+            if market=="bitfinex":
+                result=json.loads(result)
+                if dict(result).__contains__("asks"):
+                    bss=result['bids']  # the bids object in the json
+                    ass=result['asks']  # the asks object in the json
+                    for b in bss:
+                        bid=Bid(b['price'],b['amount'])
+                        self.bids.append(bid)
+                    for a in ass:
+                        ask=Ask(a['price'],a['amount'])
+                        self.asks.append(ask)
+                elif dict(result).__contains__("error_code"):
+                    self.message= error_code.Error_code_for_OKEx[result["error_code"]]
+            if market=="coinbase":
+                result=json.loads(result)
+                if dict(result).__contains__("asks"):
+                    bss=result['bids']  # the bids object in the json
+                    ass=result['asks']  # the asks object in the json
+                    for b in bss:
+                        bid=Bid(b[0],b[1])
+                        self.bids.append(bid)
+                    for a in ass:
+                        ask=Ask(a[0],a[1])
+                        self.asks.append(ask)
+                elif dict(result).__contains__("error_code"):
+                    self.message= error_code.Error_code_for_OKEx[result["error_code"]]
+            if market=="okex":
+                result=json.loads(result)
+                if dict(result).__contains__("asks"):
+                    bss=result['bids']  # the bids object in the json
+                    ass=result['asks']  # the asks object in the json
+                    for b in bss:
+                        bid=Bid(b[0],b[1])
+                        self.bids.append(bid)
+                    for a in ass:
+                        ask=Ask(a[0],a[1])
+                        self.asks.append(ask)
+                    self.asks.reverse()
+                elif dict(result).__contains__("error_code"):
+                    self.message= error_code.Error_code_for_OKEx[result["error_code"]]
+            if market=="binance":
+                result=json.loads(result)
+                if result.__contains__("asks"):
+                    bss=result['bids']  # the bids object in the json
+                    ass=result['asks']  # the asks object in the json
+                    for b in bss:
+                        bid=Bid(b[0],b[1])
+                        self.bids.append(bid)
+                    for a in ass:
+                        ask=Ask(a[0],a[1])
+                        self.asks.append(ask)
+                elif dict(result).__contains__("error_code"):
+                    self.message= error_code.Error_code_for_OKEx[result["error_code"]]
+            if market=="kucoin":
+                result=json.loads(result)
+                if result['code']=='200000':
+                    result=result['data']
+                    bss=result['bids']  # the bids object in the json
+                    ass=result['asks']  # the asks object in the json
+                    for b in bss:
+                        bid=Bid(b[0],b[1])
+                        self.bids.append(bid)
+                    for a in ass:
+                        ask=Ask(a[0],a[1])
+                        self.asks.append(ask)
+                elif dict(result).__contains__("error_code"):
+                    self.message= error_code.Error_code_for_OKEx[result["error_code"]]
+            if market=="huobi":
+                result=json.loads(result)
+                if result['status']=='ok':
+                    result=result['tick']
+                    bss=result['bids']  # the bids object in the json
+                    ass=result['asks']  # the asks object in the json
+                    for b in bss:
+                        bid=Bid(b[0],b[1])
+                        self.bids.append(bid)
+                    for a in ass:
+                        ask=Ask(a[0],a[1])
+                        self.asks.append(ask)
+                elif dict(result).__contains__("error_code"):
+                    self.message= error_code.Error_code_for_OKEx[result["error_code"]]
             elif market=="kraken":
                 self.asks=[]
                 self.bids=[]
@@ -478,6 +653,24 @@ class Depth(object):
                     self.asks.append(ask)
                 for b in result['bid'].keys():
                     bid=Bid(b,result['bid'][b])
+                    self.bids.append(bid)
+                self.bids.sort(key=lambda x: x.price, reverse=True)
+                self.asks.sort(key=lambda x: x.price, reverse=False)
+            elif market=="krakenrest":
+                result=json.loads(result)
+                if len(result['error'])!=0:
+                    self.message=result['error'][0]
+                    return
+                from packages import kraken_rest1 as KR
+                symbol=list(dict(result['result']).keys())[0]
+                result=result['result'][symbol]
+                self.asks=[]
+                self.bids=[]
+                for a in result['asks']:
+                    ask=Ask(a[0],a[1])
+                    self.asks.append(ask)
+                for b in result['bids']:
+                    bid=Bid(b[0],b[1])
                     self.bids.append(bid)
                 self.bids.sort(key=lambda x: x.price, reverse=True)
                 self.asks.sort(key=lambda x: x.price, reverse=False)

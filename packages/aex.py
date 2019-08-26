@@ -14,7 +14,7 @@ def make_currency_pair_string(currency_pair):
     reference = AEX.COINNAMEMAPPING.get(currency_pair.reference, currency_pair.reference)
     return 'c=' + base + '&mk_type=' + reference
 
-class AEX(EXCHANGE.Exchange):
+class Aex(EXCHANGE.Exchange):
 
     MARKET = 'AEX'
     COINNAMEMAPPING={

@@ -11,6 +11,23 @@ class Exchange:
         'OKEx': 'www.okex.com',
         'DigiFinex':'https://openapi.digifinex.vip',
         'Kraken':'wss://ws.kraken.com/', # this is a web socket subscription url
+        'Binance':'https://api.binance.com',
+        'Kucoin':'https://api.kucoin.com',
+        'Huobi':'https://api.huobi.pro',
+        'Liquid':'https://api.liquid.com',
+        'Okex':'https://www.okex.com',
+        'Coinbase':'https://api.pro.coinbase.com',
+        'Bitfinex':'https://api.bitfinex.com/v1',
+        'KrakenRest':'https://api.kraken.com',
+        'Bitstamp':'https://www.bitstamp.net',
+        'Gateio':'https://data.gateio.co',
+        'Bittrex':'https://api.bittrex.com',
+        'Poloniex':'https://poloniex.com',
+        'Itbit':'https://api.itbit.com',
+        'Bitso':'https://api.bitso.com',
+        'Zb':'http://api.zb.cn',
+
+
     }
 
     def __init__(self, account, base_url=None):

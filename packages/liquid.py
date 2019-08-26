@@ -13,8 +13,8 @@ from packages import universal
 # 根据 CurrencyPair 实例构造一个request的字符串
 def make_currency_pair_string(currency_pair):
     # base = AEX.COINNAMEMAPPING.get(currency_pair.base, currency_pair.base)
-    # reference = Itbit.COINNAMEMAPPING.get(currency_pair.reference, currency_pair.reference)
-    return Itbit.COINNAMEMAPPING.get(currency_pair.base, currency_pair.base).upper()+Itbit.COINNAMEMAPPING.get(currency_pair.reference, currency_pair.reference).upper()
+    # reference = AEX.COINNAMEMAPPING.get(currency_pair.reference, currency_pair.reference)
+    return  str(currency_pair.base)+str(currency_pair.reference)
 
 def append_api_key(params, api_key):
     return params+'&apiKey=' + api_key
@@ -36,68 +36,62 @@ def sign(account, params):
     encodestr = m.hexdigest()
     return encodestr
 
-class Itbit(EXCHANGE.Exchange):
+class Liquid(EXCHANGE.Exchange):
 
-    MARKET = 'Itbit'
+    MARKET = 'Liquid'
     COINNAMEMAPPING={
         'cny':'cnc',
-        'usdt':'USD',
-        'btc':'XBT'
     }
 
 
-    def __init__(self,account, base_url=None, user_id=None):
+    def __init__(self,account, base_url=None):
         self.account = account
         if not base_url is None:
             self.base_url = base_url
         else:
-            self.base_url=EXCHANGE.Exchange.MARKET_BASEURL_MAPPING['Itbit']
-        if user_id:
-            self.user_id=user_id
+            self.base_url=EXCHANGE.Exchange.MARKET_BASEURL_MAPPING['Liquid']
 
     def get_currency_pairs_info(self):
-        pass
         # GET https://openapi.digifinex.vip/v2/trade_pairs?apiKey=59328e10e296a&timestamp=1410431266&sign=0a8d39b515fd8f3f8b848a4c459884c2
-        # INFO_RESOURCE='/v2/trade_pairs'
-        # params = {}
-        # params['timestamp'] = str(time.time())
-        # params['sign'] = sign(self.account, params)
-        # result = requests.get(self.base_url + INFO_RESOURCE, params)
-        # result = universal.CurrencyPairInfos(self.MARKET, result.text)
-        # return result
+        INFO_RESOURCE='/v2/trade_pairs'
+        params = {}
+        params['timestamp'] = str(time.time())
+        params['sign'] = sign(self.account, params)
+        result = requests.get(self.base_url + INFO_RESOURCE, params)
+        result = universal.CurrencyPairInfos(self.MARKET, result.text)
+        return result
 
     def ticker(self, currency_pair=None):
-        pass
         # https://openapi.digifinex.vip/v2/ticker?apiKey=15d12cfa0a69be
         # https://openapi.digifinex.vip/v2/ticker?symbol=usdt_btc&apiKey=15d12cfa0a69be
-        # TICKER_RESOURCE = "/v2/ticker"
-        # if currency_pair is None:
-        #     params='apiKey=' + self.account.api_key
-        #     result = requests.get(self.base_url + TICKER_RESOURCE, params)
-        #     if result.status_code != 200:
-        #         return ERRORCODE.Error_Code_For_Status_Code[result.status_code]
-        #     result = json.loads(result.text)
-        #     code = result['code']
-        #     if code != 0:
-        #         return ERRORCODE.Error_code_for_DigiFinex[code]  # 这里要重新写
-        #     result = result['ticker']
-        #     return result
-        # else:
-        #     params ='symbol=' + make_currency_pair_string(currency_pair)
-        #     params=append_api_key(params,self.account.api_key)
-        #     result=requests.get(self.base_url+TICKER_RESOURCE,params)
-        #     if result.status_code!=200:
-        #         return ERRORCODE.Error_Code_For_Status_Code[result.status_code]
-        #     result=json.loads(result.text)
-        #     code=result['code']
-        #     if code!=0:
-        #         return ERRORCODE.Error_code_for_DigiFinex[code]  #这里要重新写
-        #     # result=result['ticker'][make_currency_pair_string(currency_pair)]
-        #     result = universal.Ticker(self.MARKET, currency_pair, result)
-        #     return result
+        TICKER_RESOURCE = "/v2/ticker"
+        if currency_pair is None:
+            params='apiKey=' + self.account.api_key
+            result = requests.get(self.base_url + TICKER_RESOURCE, params)
+            if result.status_code != 200:
+                return ERRORCODE.Error_Code_For_Status_Code[result.status_code]
+            result = json.loads(result.text)
+            code = result['code']
+            if code != 0:
+                return ERRORCODE.Error_code_for_DigiFinex[code]  # 这里要重新写
+            result = result['ticker']
+            return result
+        else:
+            params ='symbol=' + make_currency_pair_string(currency_pair)
+            params=append_api_key(params,self.account.api_key)
+            result=requests.get(self.base_url+TICKER_RESOURCE,params)
+            if result.status_code!=200:
+                return ERRORCODE.Error_Code_For_Status_Code[result.status_code]
+            result=json.loads(result.text)
+            code=result['code']
+            if code!=0:
+                return ERRORCODE.Error_code_for_DigiFinex[code]  #这里要重新写
+            # result=result['ticker'][make_currency_pair_string(currency_pair)]
+            result = universal.Ticker(self.MARKET, currency_pair, result)
+            return result
 
-    def depth(self,currency_pair, limit=150, raw=False):
-        # v1：https://api.itbit.com/v1/markets/XBTUSD/order_book?tickerSymbol=XBTUSD
+    def depth(self,currency_pair, limit=20, raw=False, type='step2'):
+        # v1: https://api.liquid.com/products/5/price_levels
         '''
 
         :param currency_pair:
@@ -105,7 +99,7 @@ class Itbit(EXCHANGE.Exchange):
         :return:
         '''
         # there are 4 required params: symbol, apikey, timestamp, sign
-        DEPTH_RESOURCE = "/v1/markets/"
+        DEPTH_RESOURCE = "/products/5/price_levels"
         symbol = make_currency_pair_string(currency_pair)
         # 下面的代码仅适用于v2版本的api
         # timestamp=str(int(time.time()))
@@ -119,7 +113,8 @@ class Itbit(EXCHANGE.Exchange):
         #     'apiKey':self.account.api_key,
         #     'sign':_sign
         # }
-        DEPTH_RESOURCE+=make_currency_pair_string(currency_pair)+'/order_book'
+
+        params='symbol='+symbol+'&ldepth='+str(limit)+'&type='+type
         result = requests.get(self.base_url+DEPTH_RESOURCE,proxies={'http':'http//127.0.0.1:1080','https':'https://127.0.0.1:1080'})
         if result.status_code!=200:
             return ERRORCODE.Error_Code_For_Status_Code[result.status_code]
