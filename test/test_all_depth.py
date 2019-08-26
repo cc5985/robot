@@ -62,6 +62,7 @@ for exchange in exchanges:
     threads.append(thread)
 for thread in threads:
     thread.start()
+for thread in threads:
     thread.join()
 for depth in depths:
     if len(depth.asks)>0:
