@@ -104,7 +104,7 @@ class Bitfinex(EXCHANGE.Exchange):
         symbol = make_currency_pair_string(currency_pair)
         DEPTH_RESOURCE+=symbol
         params='symbol='+symbol+'&ldepth='+str(limit)+'&type='+type
-        result = requests.get(self.base_url+DEPTH_RESOURCE)
+        result = requests.get(self.base_url+DEPTH_RESOURCE,timeout=5)
         if result.status_code!=200:
             return ERRORCODE.Error_Code_For_Status_Code[result.status_code]
         if raw == True:

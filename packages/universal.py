@@ -689,7 +689,7 @@ class Depth(object):
                     self.message= error_code.Error_code_for_OKEx[result["error_code"]]
             elif market=="digifinex":
                 result = json.loads(str(result))
-                self.timestamp = result['date']
+                # self.timestamp = result['date']
                 self.message = "操作成功"
 
                 bss=result['bids']  # the bids object in the json

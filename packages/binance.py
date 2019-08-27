@@ -114,7 +114,7 @@ class Binance(EXCHANGE.Exchange):
         #     'sign':_sign
         # }
         params='symbol='+symbol+'&limit='+str(limit)
-        result = requests.get(self.base_url+DEPTH_RESOURCE,params)
+        result = requests.get(self.base_url+DEPTH_RESOURCE,params,timeout=5)
         if result.status_code!=200:
             return ERRORCODE.Error_Code_For_Status_Code[result.status_code]
         if raw == True:

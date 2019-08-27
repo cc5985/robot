@@ -115,7 +115,7 @@ class Bitso(EXCHANGE.Exchange):
         # }
 
         params='book='+symbol
-        result = requests.get(self.base_url+DEPTH_RESOURCE,params)
+        result = requests.get(self.base_url+DEPTH_RESOURCE,params,timeout=5)
         if result.status_code!=200:
             return ERRORCODE.Error_Code_For_Status_Code[result.status_code]
         if raw == True:

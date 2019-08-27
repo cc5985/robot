@@ -55,7 +55,7 @@ def add_to_depths(exchange,currency_pair):
     t0=time.time()
     depth=exchange.depth(currency_pair)
     t0=time.time()-t0
-    print('Time used for fetching data on ', depth.market, ' takes ', t0)
+    # print('Time used for fetching data on ', depth.market, ' takes ', t0)
     depths.append(depth)
 
 def main():
@@ -63,6 +63,7 @@ def main():
     t00=time.time()
     threads=[]
     depths=[]
+    invalid_exchanges=[]
     for exchange in exchanges:
         thread=Thread(target=add_to_depths,args=(exchange,currency_pair))
         threads.append(thread)
@@ -85,11 +86,12 @@ def main():
             j=json.dumps(j)
             t0=time.time()
             pgmanager.execute("insert into depths ( market, timestamp, depth) values('"+depth.market+"',"+str(timestamp)+",'"+j+"')")
-            print('%-10s'%depth.market,' uses ' ,'%-10s'%str(time.time()-t0),' to do insertion, the total length of depth json is ',len(j))
+            # print('%-10s'%depth.market,' uses ' ,'%-10s'%str(time.time()-t0),' to do insertion, the total length of depth json is ',len(j))
         else:
+            invalid_exchanges.append(depth.market)
             print('%-10s'%depth.market,depth.market,' does not support usdt pair')
 
-    print('This round uses ', time.time()-t00, ' seconds')
+    print('This round uses ', time.time()-t00, ' seconds. And invalid exchanges are: ', invalid_exchanges)
 
 timer=TIMER.Timer(10,main)
 timer.run()
